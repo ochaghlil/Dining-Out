@@ -1,0 +1,29 @@
+Requirements Specification:
+
+Introduction: Brief Description:
+
+	A website of a restaurant where the server can put an order in through a centralized computer with different options like comments for the chef, delete the order, or even customize the order. The manager will have a different access ID who is able to add a dish, edit price, and add employees
+
+UI Sketch/Design:
+
+￼
+Product Feature List, 2 level minimum outline:
+
+
+Hardware/Software requirements:
+
+	Computers only with internet access, capable of running updated browser 
+
+Non-functional requirements, such as performance, responsiveness, portability, compatibility, safety:
+	
+	depends on wifi speed. compatible with most browsers. Safety for ID for employees 
+
+Risk factors and proposed solutions:
+
+	not being able to connect a database using phpMyAdmin
+
+Each team member writes a significant use case
+
+
+Object/class list:
+
