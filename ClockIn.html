@@ -1,0 +1,36 @@
+<!--Omar, I used your login screen HTML and CSS stuff to keep it uniform.
+	The minor differences are that I set the length of the passButton1
+	on the clock in screen to 4 characters and the characters are hidden.  
+	I finished all 46 of The New Boston's videos on XHTML but haven't 
+	gotten to the Javascript tutorials yet.  I will start those tonight
+	after we meet and hopefully I can develop an idea on how to tie this together.-->
+	
+<html>
+<head>
+		<style type="text/css">
+			body{background-color:#2F4446;}
+			h1{text-align:center; font-size:60px;color:green; border:dashed 3px red; }
+			#idButton{position:absolute; font-size:20px;top:250px; left:400px;}
+			#idButton1{position:absolute; top:250px; left:530px;}
+			#passButton{position:absolute; font-size:20px; top:280px; left:400px;}
+			#passButton1{position:absolute; top:280px; left:530px;}
+			#submitButton{position:absolute; top:310px; left:530px; cursor:pointer; background-color:green;}
+		</style>
+			<title>Clock In</title>
+</head>
+<body>
+
+	<h1>Employee Time Clock</h1>
+
+<form>
+	<label id="idButton" for="ID">Employee ID: </label>
+	<input id ="idButton1" type="text" id="ID" name="ID"> <br><br>
+	<label id="passButton" for="pass">Password: </label>
+	<input id="passButton1" type="password" id="pass" name="pass" maxlength="4"> <br><br>
+	<a href="afterClockIn.html"> <input id="submitButton" type="submit" value="Submit"> </a>
+	
+</form>
+
+</body>
+
+</html>
