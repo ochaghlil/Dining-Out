@@ -80,13 +80,13 @@ function remove(event){
 	var button = event.target
     var item = button.parentElement		//same as add
 	var num = parseInt(item.getElementsByClassName('amt')[0].innerText)
+	var newtotal = (parseFloat(document.getElementsByClassName('totalc')[0].innerText.replace('$', '')) - parseFloat(item.getElementsByClassName('price')[0].innerText)).toFixed(2)
 	if(num > 1){
 		item.getElementsByClassName('amt')[0].innerText = num - 1		//same as add except subtracts 
 	}
 	else{
 		button.parentElement.remove()
 	}
-	var newtotal = (parseFloat(document.getElementsByClassName('totalc')[0].innerText.replace('$', '')) - parseFloat(item.getElementsByClassName('price')[0].innerText)).toFixed(2)
 	document.getElementsByClassName('totalc')[0].innerText = '$' + newtotal			//just more total calculation
 	ready()
 	
