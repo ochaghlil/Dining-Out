@@ -31,6 +31,14 @@ function ready(){
         var button = readButtons[i]
         button.addEventListener('click', readnote)		//ditto
     }
+	var ordered = document.getElementsByClassName('ordered')[0]
+	var nums = ordered.getElementsByClassName("amt")
+	var prices = ordered.getElementsByClassName("price")
+	var total = 0
+	for(var i = 0; i < nums.length; i++){												//"sends" the order to the chef
+		total = total + nums[i].innerText * prices[i].innerText 		
+	}
+	document.getElementsByClassName('totalc')[0].innerText = "$" + total
 }
 
 function add(event){
@@ -38,8 +46,6 @@ function add(event){
     var item = button.parentElement			//creates a pointer to the object where the button was clicked
     var dish = item.getElementsByClassName('dish')[0].innerText			//assigns elements to local variables
     var price = item.getElementsByClassName('price')[0].innerText
-	var newtotal = (parseFloat(document.getElementsByClassName('totalc')[0].innerText.replace('$', '')) + parseFloat(price)).toFixed(2)		//finds the total then converts it to a double roudned to x.xx
-	document.getElementsByClassName('totalc')[0].innerText = '$' + newtotal			//add the value
 	add2(dish, price)			//dont know why this needs to be in a seperate function it doesnt work together, idfk
 }		
 
@@ -80,14 +86,12 @@ function remove(event){
 	var button = event.target
     var item = button.parentElement		//same as add
 	var num = parseInt(item.getElementsByClassName('amt')[0].innerText)
-	var newtotal = (parseFloat(document.getElementsByClassName('totalc')[0].innerText.replace('$', '')) - parseFloat(item.getElementsByClassName('price')[0].innerText)).toFixed(2)
 	if(num > 1){
 		item.getElementsByClassName('amt')[0].innerText = num - 1		//same as add except subtracts 
 	}
 	else{
 		button.parentElement.remove()
 	}
-	document.getElementsByClassName('totalc')[0].innerText = '$' + newtotal			//just more total calculation
 	ready()
 	
 }
@@ -95,11 +99,6 @@ function remove(event){
 function removeall(event){
 	var button = event.target
 	var item = button.parentElement			//same as remove except it needed a loop to keep track of the total change
-	var newtotal = (parseFloat(document.getElementsByClassName('totalc')[0].innerText.replace('$', ''))).toFixed(2)
-	for(var i = 0; i < parseInt(document.getElementsByClassName('amt')[0].innerText); i++){
-		newtotal = (parseFloat(newtotal) - parseFloat(item.getElementsByClassName('price')[0].innerText)).toFixed(2)
-	}
-	document.getElementsByClassName('totalc')[0].innerText = '$' + newtotal
     button.parentElement.remove()
 	ready()
 }
