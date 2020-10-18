@@ -36,9 +36,9 @@ function ready(){
 	var prices = ordered.getElementsByClassName("price")
 	var total = 0
 	for(var i = 0; i < nums.length; i++){												//"sends" the order to the chef
-		total = total + nums[i].innerText * prices[i].innerText 		
+		total = total + nums[i].innerText * prices[i].innerText 
 	}
-	document.getElementsByClassName('totalc')[0].innerText = "$" + total
+	document.getElementsByClassName('totalc')[0].innerText = "$" + total.toFixed(2)
 }
 
 function add(event){
