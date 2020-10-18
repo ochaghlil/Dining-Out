@@ -32,8 +32,8 @@ function ready(){
         button.addEventListener('click', readnote)		//ditto
     }
 	var ordered = document.getElementsByClassName('ordered')[0]
-	var nums = ordered.getElementsByClassName("amt")
-	var prices = ordered.getElementsByClassName("price")
+	var nums = ordered.getElementsByClassName("amto")
+	var prices = ordered.getElementsByClassName("priceo")
 	var total = 0
 	for(var i = 0; i < nums.length; i++){												//"sends" the order to the chef
 		total = total + nums[i].innerText * prices[i].innerText 
@@ -52,8 +52,8 @@ function add(event){
 function add2(dish, price){
 	var toadd = document.createElement('div')
 	var ordered = document.getElementsByClassName('ordered')[0]		//same thing as add
-	var names = ordered.getElementsByClassName('dish')
-	var nums = ordered.getElementsByClassName("amt")
+	var names = ordered.getElementsByClassName('disho')
+	var nums = ordered.getElementsByClassName("amto")
 	var temp = 0
 	for(var i = 0; i < names.length; i++){			//checks for duplicate orders and counts if dupicate
 		if(names[i].innerText == dish){
@@ -67,10 +67,10 @@ function add2(dish, price){
 	else{
 		var content = `
 			<div class="item">
-				<span class="amt">1</span>
-				<span class="dish">${dish}</span>
-				<span class="price">${price}</span>
-				<span class="description"></span>
+				<span class="amto">1</span>
+				<span class="disho">${dish}</span>
+				<span class="priceo">${price}</span>
+				<span class="descriptiono"></span>
 				<button class="removeButton" type="button">-1</button>
 				<button class="removeAllButton" type="button">-ALL</button>
 				<button class="notebtn" type="button">Add Note</button>
@@ -85,9 +85,9 @@ function add2(dish, price){
 function remove(event){
 	var button = event.target
     var item = button.parentElement		//same as add
-	var num = parseInt(item.getElementsByClassName('amt')[0].innerText)
+	var num = parseInt(item.getElementsByClassName('amto')[0].innerText)
 	if(num > 1){
-		item.getElementsByClassName('amt')[0].innerText = num - 1		//same as add except subtracts 
+		item.getElementsByClassName('amto')[0].innerText = num - 1		//same as add except subtracts 
 	}
 	else{
 		button.parentElement.remove()
