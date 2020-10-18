@@ -106,17 +106,17 @@ function removeall(event){
 function addnote(event){
 	var button = event.target
 	var item = button.parentElement
-	var note = prompt("Please enter your note:", item.getElementsByClassName('description')[0].innerText)		//makes an alert that takes an input
+	var note = prompt("Please enter your note:", item.getElementsByClassName('descriptiono')[0].innerText)		//makes an alert that takes an input
 	if(note == null || note == ""){	}
 	else{
-		item.getElementsByClassName('description')[0].innerText = note			//writes the input to its object
+		item.getElementsByClassName('descriptiono')[0].innerText = note			//writes the input to its object
 	}
 }
 
 function readnote(event){
 	var button = event.target
 	var item = button.parentElement
-	var note = item.getElementsByClassName('description')[0].innerText			//reads the note in the object the outputs it
+	var note = item.getElementsByClassName('descriptiono')[0].innerText			//reads the note in the object the outputs it
 	if(note == null || note == ""){
 		alert("No note.")				
 	}
@@ -127,10 +127,10 @@ function readnote(event){
 
 function printsend(){
 	var ordered = document.getElementsByClassName('ordered')[0]
-	var names = ordered.getElementsByClassName('dish')
-	var nums = ordered.getElementsByClassName("amt")
-	var descs = ordered.getElementsByClassName("description")				//getting info from objects
-	var prices = ordered.getElementsByClassName("price")
+	var names = ordered.getElementsByClassName('disho')
+	var nums = ordered.getElementsByClassName("amto")
+	var descs = ordered.getElementsByClassName("descriptiono")				//getting info from objects
+	var prices = ordered.getElementsByClassName("priceo")
 	var total = document.getElementsByClassName('totalc')[0].innerText
 	for(var i = 0; i < names.length; i++){												//"sends" the order to the chef
 		console.log(nums[i].innerText + " order(s) of " + names[i].innerText + " at $" + prices[i].innerText + "          note: " + descs[i].innerText)		
