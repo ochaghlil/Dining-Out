@@ -1,0 +1,62 @@
+<!doctype html>
+	
+<html>
+<head>
+	<style type="text/css">
+			body{background-color:#2F4446;}
+			h1{text-align:center; font-size:60px;color:green; border:dashed 3px red; }
+			#idButton{position:absolute; font-size:20px;top:250px; left:400px;}
+			#idButton1{position:absolute; top:250px; left:530px;}
+			#passButton{position:absolute; font-size:20px; top:280px; left:400px;}
+			#passButton1{position:absolute; top:280px; left:530px;}
+			#clockInButton{position:absolute; top:310px; left:530px; cursor:pointer; background-color:green;}
+			#clockOutButton{position:absolute; top:310px; left:630px; cursor:pointer; background-color:red;}
+	</style>
+			<title>Clock In</title>
+</head>
+<body>
+<script type ="text/javascript">
+
+
+var startTime, endTime;
+
+function clockIn() {
+  startTime = performance.now();
+};
+
+function clockOut() {
+  endTime = performance.now();
+	var timeDiff = endTime - startTime; //in ms 
+	// strip the ms 
+	timeDiff /= 1000; 
+	// 	get seconds 
+	var seconds = Math.round(timeDiff);
+		if (seconds < 60){
+		document.write(" You have been clocked in for "+ seconds + " seconds.");
+  	}
+		else {
+	//get minutes
+	var minutes = Math.round(timeDiff/60);
+	document.write(" You have been clocked in for "+ minutes +" minutes.");
+	}
+	
+}
+	
+</script>
+	
+	<h1>Employee Time Clock</h1>
+
+<form>
+	<label id="idButton" for="ID">Employee ID: </label>
+	<input id ="idButton1" type="text" id="ID" name="ID"> <br><br>
+	<label id="passButton" for="pass">Password: </label>
+	<input id="passButton1" type="password" id="pass" name="pass" maxlength="4"> <br><br>
+	<input id="clockInButton" type="button" value="Clock In" onclick='clockIn()'>
+	<input id="clockOutButton" type="button" value="Clock Out" onclick='clockOut()'>
+</form>
+<script type ="text/javascript">
+
+</script>
+</body>
+
+</html>
