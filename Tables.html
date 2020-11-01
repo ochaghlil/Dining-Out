@@ -1,0 +1,73 @@
+<html>
+<head>
+		<style type="text/css">
+		
+			body{background-color:#2F4446;}
+			
+			#table1{position:absolute; top:100px; left:100px;}
+			#table2{position:absolute; top:100px; left:800px;}
+			#table3{position:absolute; top:250px; left:450px; }
+			#table4{position:absolute; top:400px; left:100px;}
+			#table5{position:absolute; top:400px; left:800px;}
+			#t{position:absolute; top:800px; left:800px;}
+			
+			
+			.free {font-size:70px;background-color:green; padding:10px; border-radius:20px; box-shadow:0 10px gray;}
+			.free:hover{cursor:pointer; background-color:#3e8e41;}
+			.free:active{background-color:#3e8e41; box-shadow:0 6px #666; transform:translateY(4px);}
+			
+			.ocupied {font-size:70px;background-color:red; padding:10px; border-radius:20px; box-shadow:0 10px gray;}
+			.ocupied:hover{cursor:pointer; background-color:#FE4444;}
+			.ocupied:active{background-color:#FE4444; box-shadow:0 6px #666; transform:translateY(4px);}
+			
+			
+			
+		</style>
+		
+	<title>Tables Selection</title>
+	
+</head>
+<body>
+	
+	
+	<button id="t" class="t" onclick="alert('e')"> E </button>
+	<button id="table1" class="free" onclick="addclick()"> TABLE 1 </button>
+	<button id="table2" class="free" onclick="addclick()"> TABLE 2 </button>
+	<button id="table3" class="free" onclick="addclick()"> TABLE 3 </button>
+	<button id="table4" class="free" onclick="addclick()"> TABLE 4 </button>
+	<button id="table5" class="free" onclick="addclick()"> TABLE 5 </button>
+	
+	</form>
+	<script>																														
+	
+	function addclick(){
+		var button = event.target
+		button.classList.replace('free', 'ocupied')
+		button.onclick = function() {remclick()}
+		rfsh()
+	}
+	function remclick(){
+		var button = event.target
+		button.classList.replace('ocupied', 'free')
+		button.onclick = function() {addclick()}
+		rfsh()
+	}
+	function rfsh(){
+		var x = document.getElementsByClassName('free')
+		var showthis = document.getElementById("t")
+		if(x.length == 0){
+			showthis.style.display = "block"
+		}
+		else{
+			showthis.style.display = "none"
+		}
+	}
+	rfsh()
+	
+	
+	</script>
+
+
+</body>
+
+</html>
