@@ -29,7 +29,7 @@
 </head>
 <body>
 	
-	
+
 	<button id="t" class="t" onclick="alert('e')"> E </button>
 	<button id="table1" class="free" onclick="addclick()"> TABLE 1 </button>
 	<button id="table2" class="free" onclick="addclick()"> TABLE 2 </button>
@@ -40,16 +40,53 @@
 	</form>
 	<script>																														
 	
+	if(getCookie("table1") == "1"){
+		var x = document.getElementById("table1")
+		x.classList.replace('free', 'ocupied')
+		x.onclick = function() {remclick()}
+		rfsh()
+	}
+	if(getCookie("table2") == "1"){
+		var x = document.getElementById("table2")
+		x.classList.replace('free', 'ocupied')
+		x.onclick = function() {remclick()}
+		rfsh()
+	}
+	if(getCookie("table3") == "1"){
+		var x = document.getElementById("table3")
+		x.classList.replace('free', 'ocupied')
+		x.onclick = function() {remclick()}
+		rfsh()
+	}
+	if(getCookie("table4") == "1"){
+		var x = document.getElementById("table4")
+		x.classList.replace('free', 'ocupied')
+		x.onclick = function() {remclick()}
+		rfsh()
+	}
+	if(getCookie("table5") == "1"){
+		var x = document.getElementById("table5")
+		x.classList.replace('free', 'ocupied')
+		x.onclick = function() {remclick()}
+		rfsh()
+	}
+	
+	
 	function addclick(){
 		var button = event.target
 		button.classList.replace('free', 'ocupied')
 		button.onclick = function() {remclick()}
 		rfsh()
+		document.cookie="tablenum=" + button.id + ";"
+		document.cookie=button.id + "=1;"
+		rfsh()
+		window.location.href="interface.html"
 	}
 	function remclick(){
 		var button = event.target
 		button.classList.replace('ocupied', 'free')
 		button.onclick = function() {addclick()}
+		document.cookie=button.id + "=0;"
 		rfsh()
 	}
 	function rfsh(){
@@ -62,8 +99,26 @@
 			showthis.style.display = "none"
 		}
 	}
+	
+	
 	rfsh()
 	
+	
+	function getCookie(cname) {
+		var name = cname + "=";
+		var decodedCookie = decodeURIComponent(document.cookie);
+		var ca = decodedCookie.split(';');
+		for(var i = 0; i <ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0) == ' ') {
+			c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+			}
+		}
+		return "";
+		}
 	
 	</script>
 

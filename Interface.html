@@ -23,7 +23,7 @@
 	.dish{position:relative; left:15px; font-size:25px;}
 	.price{position:relative;  left:200px; font-size:25px;}
 	.addbtn{position:relative; left:300px; font-size:20px; }
-
+	.nameplace{position:absolute; top:60px; left:650px;}
 	.headClass{position:absolute; top:60px; left:1050px;}
 	.menuClass{position:absolute; top:130px; left:880px;}
 	.sideClass{position:absolute; top:130px; left:880px;}
@@ -74,7 +74,6 @@
 	<table  style="width:400px; height:500px" id="table" >
 		<caption>YOUR ORDER</caption>
 		<tr> </tr>
-		
 	</table>
 	
 	<!--buttons to see the dishes-->
@@ -101,13 +100,14 @@
 	
 	<button id="receipt" class="receipt receipt" onclick="printsend()"> PRINT RECEIPT</button>
 	
-	<form action="login.html">
-		<button id="logout"  class="logout logout"> LOG OUT</button>
+	<form action="tables.html">
+		<button id="logout"  class="logout logout"> BACK</button>
 	</form>
 	
 	
 	
 	<!--stuff Ian did-->
+	<h2 class="nameplace"></h2>
 	<h2 class="headClass" id="menuH"> MENU</h2>		<!-- These are all for test purposes, structure must stay same but neds to be replaced to read from database-->
 	<section class="menuClass" id="menuC" style="width: 200px;">
 		<div id="mainTableDiv">
@@ -322,9 +322,8 @@
 		
 	
 		
-		
 		function test(){
-			alert("e");
+			alert("E")
 		}
 		var t1 = document.getElementById("table2")
 		var t2 = document.getElementById("table3")
@@ -359,6 +358,22 @@
 			menC.style.display = "block"
 		}
 		mainD();	//to load an inital menu
+		function getCookie(cname) {
+		var name = cname + "=";
+		var decodedCookie = decodeURIComponent(document.cookie);
+		var ca = decodedCookie.split(';');
+		for(var i = 0; i <ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0) == ' ') {
+			c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+			}
+		}
+		return "";
+		}
+		document.getElementsByClassName("nameplace")[0].innerText = getCookie("tablenum")
 	</script>
 	
 	

@@ -38,7 +38,10 @@ function ready(){
 	for(var i = 0; i < nums.length; i++){												//"sends" the order to the chef
 		total = total + nums[i].innerText * prices[i].innerText 
 	}
+	document.cookie="subtotal=" + total + ";";
 	document.getElementsByClassName('totalc')[0].innerText = "$" + total.toFixed(2)
+	
+
 }
 
 function add(event){
@@ -126,6 +129,7 @@ function readnote(event){
 }
 
 function printsend(){
+	alert(getCookie("subtotal"))
 	var ordered = document.getElementsByClassName('ordered')[0]
 	var names = ordered.getElementsByClassName('disho')
 	var nums = ordered.getElementsByClassName("amto")
@@ -146,9 +150,21 @@ function printsend(){
 	document.getElementById("orderC").innerHTML = content	
 }
 
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
 
 
 
-	
-	
-	
