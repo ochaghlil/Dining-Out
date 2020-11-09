@@ -2,34 +2,33 @@
 <head>
 	<style type="text/css">
 		
-	body{background-color:#2F4446;}
+		body{background-color:#36ad74;}
 		
-	#table{position:absolute; top:90px; left:70px;}
+	#table{position:absolute; top:90px; left:90px;}
 	#sideButton{position:absolute; top:130px; left:600px;}
 	#mainButton{position:absolute; top:230px; left:600px;}
 	#dessertButton{position:absolute; top:330px; left:600px;}
-	#searchButton{position:absolute; top:530px; left:600px;}
 	#table2{position:absolute; top:110px; left:870px;}
 	#table3{position:absolute; top:110px; left:870px;}
 	#table4{position:absolute; top:110px; left:870px;}
 
 	#mainTableDiv{
 		height:450px;
-		width:585px;
-		overflow-y:scroll;
+		width:430px;
+		overflow-y:auto;
 	}
 	
 
-	.dish{position:relative; left:15px; font-size:25px;}
-	.price{position:relative;  left:200px; font-size:25px;}
-	.addbtn{position:relative; left:300px; font-size:20px; }
-	.nameplace{position:absolute; top:60px; left:650px;}
+	.dish{position:relative; left:5px; font-size:25px;}
+	.price{position:relative;  left:150px; font-size:25px;}
+	.addbtn{position:relative; left:200px; font-size:20px; }
+
 	.headClass{position:absolute; top:60px; left:1050px;}
 	.menuClass{position:absolute; top:130px; left:880px;}
 	.sideClass{position:absolute; top:130px; left:880px;}
 	.desClass{position:absolute; top:130px; left:880px;}
-	.orderClass{position:absolute; top:130px; left:80px;}	
-	.Total{position:absolute; top:490px; left:80px;}
+	.orderClass{position:absolute; top:130px; left:100px;}	
+	.Total{position:absolute; top:480px; left:110px;}
 	.descriptiono{display:none;}
 	
 	
@@ -37,7 +36,17 @@
 	.receipt {border-radius:55%; padding:10px; text-align:center;}
 	
 	#logout{position:absolute; top:630px; left:1130px; cursor:pointer;background-color:red;}
-	.logout {width:150px;font-size:25px;}
+	.logout {width:140px;font-size:25px;}
+	
+	#clockOut{position:absolute; top:620px; left:870px; cursor:pointer;background-color:blue;}
+	.clockOut {width:100px;font-size:25px; }
+	
+	#addEmployee{position:absolute; top:40px; left:130px; cursor:pointer;background-color:orange;}
+	.addEmployee {width:110px;font-size:15px;}
+	
+	#changeTable{position:absolute; top:620px; left:90px; cursor:pointer;background-color:brown;}
+	.changeTable {width:80px;font-size:15px;}
+	
 	
 	.button {background-color:green; padding:20px; cursor:pointer;}
 	.foodButton {border:4px solid black;background-color:orange;  padding:20px; cursor:pointer;}
@@ -45,26 +54,22 @@
 	.button1 {width:150px;}
 	.button2 {width:150px;}
 	.button3 {width:150px;}
-	.button4 {width:150px;}
 	
-
+	#edit{position:absolute; top:590px; left:1030px; cursor:pointer;background-color:white;}
+	.edit{border-radius:90%; padding:10px; text-align:center;}
 	
-	
-	
-	
-	
+	#bigWrapper{border:1px solid red; width:1300px; margin:20px auto;  }
+				
 	
 	
 	table{border:5px solid black;}
 	
 	</style>
-	<title>Menu</title>
+	<title>temp</title>
 	<script src="cart.js" asynch></script>	<!-- the javascript  -->
 </head>
-
-<body>
 	
-	
+	<body id="bigWrapper">
 	
 	
 	
@@ -72,15 +77,15 @@
 	
 	<!--table to see the order-->
 	<table  style="width:400px; height:500px" id="table" >
-		<caption>YOUR ORDER</caption>
+		<caption>ORDER TABLE #1</caption>
 		<tr> </tr>
+		
 	</table>
 	
 	<!--buttons to see the dishes-->
 	<button id="sideButton" class="button button1" onclick="sideD()" > SIDE DISHES </button>
 	<button id="mainButton" class="button button2" onclick="mainD()"> MAIN DISHES </button>
 	<button id="dessertButton" class="button button3" onclick="desD()"> DESSERT</button>
-	<button id="searchButton" class="button button4" onclick="test()"> SEARCH</button>
 	<p id="demo"></p>
 	
 	
@@ -100,16 +105,29 @@
 	
 	<button id="receipt" class="receipt receipt" onclick="printsend()"> PRINT RECEIPT</button>
 	
-	<form action="tables.html">
-		<button id="logout"  class="logout logout"> BACK</button>
+	<form action="login.html">
+		<button id="logout"  class="logout logout"> LOG OUT</button>
 	</form>
 	
+	<form action="ClockIn.html">
+		<button id="clockOut"  class="clockOut"> CLOCK OUT</button>
+	</form>
 	
+	<form action="editMenu.html">
+		<button id="edit" class="edit">EDIT MENU</button>
+	</form>
+	
+	<form action="addEmployee.html">
+		<button id="addEmployee" class="addEmployee">EDIT EMPLOYEES</button>
+	</form>
+	
+	<form action="tables.html">
+		<button id="changeTable" class="changeTable">Change Table</button>
+	</form>
 	
 	<!--stuff Ian did-->
-	<h2 class="nameplace"></h2>
 	<h2 class="headClass" id="menuH"> MENU</h2>		<!-- These are all for test purposes, structure must stay same but neds to be replaced to read from database-->
-	<section class="menuClass" id="menuC" style="width: 200px;">
+	<section class="menuClass" id="menuC" >
 		<div id="mainTableDiv">
 		<div class="item">
 			<span class="dish">Burger</span>
@@ -121,7 +139,7 @@
 			<span class="dish">Taco</span>
 			<span class="price">1.99</span>
 			<span class="type main" ></span>
-			<button class="addbtn" type="button">ADD</button>
+			<button class="addbtn" type="button"style=”float:right;”>ADD</button>
 		</div>
 		<div class="item">
 			<span class="dish">Fish</span>
@@ -257,7 +275,8 @@
 		
 		</div>
 	</section>
-	<section class="sideClass" id="sideC" style="width: 200px;">
+	<section class="sideClass" id="sideC" >
+		<div id="mainTableDiv">
 		<div class="item">
 			<span class="dish">Fries</span>
 			<span class="price">3.99</span>
@@ -283,7 +302,8 @@
 			<button class="addbtn" type="button">ADD</button>
 		</div>
 	</section>
-	<section class="desClass" id="desC" style="width: 200px;">
+	<section class="desClass" id="desC" >
+		<div id="mainTableDiv">
 		<div class="item">
 			<span class="dish">Ice Cream</span>
 			<span class="price">4.99</span>
@@ -317,13 +337,9 @@
 		</div>
 	</section>
 	<script>
-		
-		
-		
-	
-		
+				
 		function test(){
-			alert("E")
+			alert("e");
 		}
 		var t1 = document.getElementById("table2")
 		var t2 = document.getElementById("table3")
@@ -358,27 +374,10 @@
 			menC.style.display = "block"
 		}
 		mainD();	//to load an inital menu
-		function getCookie(cname) {
-		var name = cname + "=";
-		var decodedCookie = decodeURIComponent(document.cookie);
-		var ca = decodedCookie.split(';');
-		for(var i = 0; i <ca.length; i++) {
-			var c = ca[i];
-			while (c.charAt(0) == ' ') {
-			c = c.substring(1);
-			}
-			if (c.indexOf(name) == 0) {
-			return c.substring(name.length, c.length);
-			}
-		}
-		return "";
-		}
-		document.getElementsByClassName("nameplace")[0].innerText = getCookie("tablenum")
-	</script>
-	
-	
+	</script>		
 	
 	
 </body>
 
 </html>
+
