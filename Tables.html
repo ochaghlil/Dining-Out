@@ -2,7 +2,7 @@
 <head>
 		<style type="text/css">
 		
-			body{background-color:#2F4446;}
+			body{background-color:#7ACBFF;}
 			
 			#table1{position:absolute; top:100px; left:100px;}
 			#table2{position:absolute; top:100px; left:800px;}
@@ -19,7 +19,8 @@
 			.ocupied {font-size:70px;background-color:red; padding:10px; border-radius:20px; box-shadow:0 10px gray;}
 			.ocupied:hover{cursor:pointer; background-color:#FE4444;}
 			.ocupied:active{background-color:#FE4444; box-shadow:0 6px #666; transform:translateY(4px);}
-			
+			#logout{position:absolute; top:630px; left:1130px; cursor:pointer;background-color:red;}
+			.logout {width:150px;font-size:25px;}
 			
 			
 		</style>
@@ -29,7 +30,7 @@
 </head>
 <body>
 	
-
+	
 	<button id="t" class="t" onclick="alert('e')"> E </button>
 	<button id="table1" class="free" onclick="addclick()"> TABLE 1 </button>
 	<button id="table2" class="free" onclick="addclick()"> TABLE 2 </button>
@@ -38,6 +39,18 @@
 	<button id="table5" class="free" onclick="addclick()"> TABLE 5 </button>
 	
 	</form>
+	
+	
+	
+	
+	<form action="login.html">
+		<button id="logout"  class="logout logout"> BACK</button>
+	</form>
+	
+	
+	
+	
+	
 	<script>																														
 	
 	if(getCookie("table1") == "1"){
@@ -118,7 +131,7 @@
 			}
 		}
 		return "";
-		}
+	}
 	
 	</script>
 

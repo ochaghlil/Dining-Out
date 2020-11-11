@@ -129,7 +129,13 @@ function readnote(event){
 }
 
 function printsend(){
-	alert(getCookie("subtotal"))
+	var y = 0
+    while(y < 10){
+        if(document.getElementsByClassName('dish')[y].innerText == "Fish"){
+			alert("found")
+		}
+        y++
+    }
 	var ordered = document.getElementsByClassName('ordered')[0]
 	var names = ordered.getElementsByClassName('disho')
 	var nums = ordered.getElementsByClassName("amto")
@@ -148,6 +154,7 @@ function printsend(){
 		</div>
 		`					//deletes the order by writing over it
 	document.getElementById("orderC").innerHTML = content	
+	window.location.href="payment.html"
 }
 
 function getCookie(cname) {
