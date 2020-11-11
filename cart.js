@@ -129,13 +129,6 @@ function readnote(event){
 }
 
 function printsend(){
-	var y = 0
-    while(y < 10){
-        if(document.getElementsByClassName('dish')[y].innerText == "Fish"){
-			alert("found")
-		}
-        y++
-    }
 	var ordered = document.getElementsByClassName('ordered')[0]
 	var names = ordered.getElementsByClassName('disho')
 	var nums = ordered.getElementsByClassName("amto")

@@ -59,8 +59,8 @@
 		</div>
 		<div class="check card" id="check">
 			Routing Number: <input type="text" name="chknum" id ="chknum" maxlength="9" size="7">
-			Account #: <input type="text" name="expd1" id ="expd1" maxlength="12" size="10">
-			Check Number: <input type="text" name="expd1" id ="expd1" maxlength="3" size="1">
+			Account #: <input type="text" name="acn" id ="acn" maxlength="12" size="10">
+			Check Number: <input type="text" name="cn" id ="cn" maxlength="3" size="1">
 			Payment Amount: <input type="text" name="chkpaymentamt" id ="chkpaymentamt" size="6">
 			<button id="chapay" onclick="makechkPayment();">Make Payment </button>
 		</div>
@@ -91,6 +91,14 @@
 		document.getElementById("gcpaymentamt").value = subtotal
 		document.getElementById("cshpaymentamt").value = subtotal
 		document.getElementById("chkpaymentamt").value = subtotal
+		document.getElementById("ccnum").value = ""
+		document.getElementById("gcnum").value = ""
+		document.getElementById("chknum").value = ""
+		document.getElementById("expd1").value = ""
+		document.getElementById("expd2").value = ""
+		document.getElementById("sec").value = ""
+		document.getElementById("acn").value = ""
+		document.getElementById("cn").value = ""
 	}
 	
 	
@@ -158,7 +166,7 @@
 		rdy()
 	}
 	function makegcPayment(){
-		if(document.getElementById("gcnum").value == gc1num){
+		if(document.getElementById("gcnum").value == gc1num && document.getElementById("gcpaymentamt").value <= gc1amt){
 			var toadd = document.createElement('div')
 			var list = document.getElementsByClassName('paymentlist')[0]
 			var content =`				
@@ -168,6 +176,7 @@
 			toadd.innerHTML = content 
 			list.append(toadd)
 			subtotal = (subtotal - document.getElementById("gcpaymentamt").value).toFixed(2)
+			gc1amt = gc1amt - document.getElementById("gcpaymentamt").value
 			rdy()
 		}
 		else{
