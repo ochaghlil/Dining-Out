@@ -6,7 +6,9 @@
 	#logout{position:absolute; top:630px; left:1130px; cursor:pointer;background-color:red;}
 	.logout {width:150px;font-size:25px;}
 	#table{position:absolute; top:90px; left:70px; font-size:25px;}
+	#table2{position:absolute; top:120px; left:55px; font-size:25px;}
 	.Total{position:absolute; top:90px; left:362px; font-size:25px;}
+	.Remain{position:absolute; top:120px; left:362px; font-size:25px;}
 	.select{position:absolute; top:90px; left:500px; font-size:25px;}
 	.card{position:absolute; top:220px; left:100px; width:200px;}
 	.button1{width:150px; position:absolute; top:150px; left:100px;}
@@ -15,6 +17,7 @@
 	.button4{width:150px; position:absolute; top:150px; left:700px;}
 	.button{background-color:#61EF50; padding:10px; cursor:pointer; border-radius:20px;}
 	.paymentlist{position:absolute; top:220px; left:350px; font-size:25px;}
+	.amt{display:none;}
 	</style>
 </head>
 <body>
@@ -24,8 +27,15 @@
 		<caption>YOUR TOTAL: $</caption>
 		<tr> </tr>
 	</table>
+	<table  style="width:400px; height:500px" id="table2" >
+		<caption>BALANCE LEFT: $</caption>
+		<tr> </tr>
+	</table>
 	<div class="Total">
 		<span class="totalc">0.00</span>		<!-- Where the total is stored -->
+	</div>
+	<div class="Remain">
+		<span class="remainc">0.00</span>		<!-- Where the total is stored -->
 	</div>
 	<div>
 		<span class="select">Please Select a Payment Option:</span>
@@ -81,12 +91,13 @@
 	var gc1num = 123456789012
 	var gc1amt = 50.00
 	
+	
 	function rdy(){
 		ccards.style.display = "none"
 		gcards.style.display = "none"
 		cshcards.style.display = "none"
 		chkcards.style.display = "none"
-		document.getElementsByClassName("totalc")[0].innerText = subtotal
+		document.getElementsByClassName("remainc")[0].innerText = subtotal
 		document.getElementById("ccpaymentamt").value = subtotal
 		document.getElementById("gcpaymentamt").value = subtotal
 		document.getElementById("cshpaymentamt").value = subtotal
@@ -99,6 +110,11 @@
 		document.getElementById("sec").value = ""
 		document.getElementById("acn").value = ""
 		document.getElementById("cn").value = ""
+		var removeButtons = document.getElementsByClassName('removeButton')
+		for (var i = 0; i < removeButtons.length; i++) {
+				var button = removeButtons[i]
+				button.addEventListener('click', remove)		//ditto
+		}
 	}
 	
 	
@@ -120,7 +136,7 @@
 		return "";
 	}
 	var subtotal = parseFloat(getCookie("subtotal")).toFixed(2)
-
+	document.getElementsByClassName("totalc")[0].innerText = subtotal
 
 	
 	
@@ -159,6 +175,8 @@
 		var content =`				
 		<div>
 			<span>Charged $${document.getElementById("ccpaymentamt").value} via credit card from card ending in ${document.getElementById("ccnum").value.substr(8)}</span>
+			<span class="amt">${document.getElementById("ccpaymentamt").value}</span>
+			<button class="removeButton" type="button">Remove Payment</button>
 		</div>`
 		toadd.innerHTML = content 
 		list.append(toadd)
@@ -172,6 +190,8 @@
 			var content =`				
 			<div>
 				<span>Charged $${document.getElementById("gcpaymentamt").value} via gift card. Gift card has $${parseFloat(gc1amt) - document.getElementById("gcpaymentamt").value} left</span>
+				<span class="amt">${document.getElementById("gcpaymentamt").value}</span>
+				<button class="removeButton" type="button">Remove Payment</button>
 			</div>`
 			toadd.innerHTML = content 
 			list.append(toadd)
@@ -189,6 +209,8 @@
 		var content =`				
 		<div>
 			<span>Charged $${document.getElementById("cshpaymentamt").value} via cash</span>
+			<span class="amt">${document.getElementById("cshpaymentamt").value}</span>
+			<button class="removeButton" type="button">Remove Payment</button>
 		</div>`
 		toadd.innerHTML = content 
 		list.append(toadd)
@@ -201,13 +223,22 @@
 		var content =`				
 		<div>
 			<span>Charged $${document.getElementById("chkpaymentamt").value} via check from account ending in ${document.getElementById("chknum").value.substr(7)}</span>
+			<span class="amt">${document.getElementById("chkpaymentamt").value}</span>
+			<button class="removeButton" type="button">Remove Payment</button>
 		</div>`
 		toadd.innerHTML = content 
 		list.append(toadd)
 		subtotal = (subtotal - document.getElementById("chkpaymentamt").value).toFixed(2)
 		rdy()
 	}
-	
+	function remove(event){
+		var button = event.target
+		var item = button.parentElement			//same as remove except it needed a loop to keep track of the total change
+		document.getElementsByClassName("remainc")[0].innerText = parseFloat(subtotal) + parseFloat(item.getElementsByClassName("amt")[0].innerText)
+		subtotal = document.getElementsByClassName("remainc")[0].innerText
+		button.parentElement.remove()
+		rdy()
+	}
 	
 	
 	rdy()
