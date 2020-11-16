@@ -1,0 +1,162 @@
+<html>
+
+	<head>
+		
+		<style>
+			
+			body{background-color:#36ad74;}
+			
+			.menu{position:hidden;font-size:20px;}
+			.tab-2{padding:5px;}
+			.done{float:left;display:block;}
+			
+			
+			tr{transition:all .25s ease-in-out;}
+			tr:hover{background-color:#EEE; cursor:pointer;}
+
+			#done{position:absolute;left:750px;background-color:green;width:100px;font-size:25px;cursor:pointer;}
+			#action{width:40px; padding:6px; cursor:pointer; }
+			#actions{width:60px; padding:6px; cursor:pointer;}
+			
+			#bigWrapper{border:1px solid red; width:1000px; margin:20px auto; text-align:center;}
+			
+			#table{padding:5px;}
+			
+			
+			</style>
+		
+	</head>
+	
+	<body id="bigWrapper">
+		<title>Edit Menu</title>
+			  		
+		
+	<div class="menu">
+		<div class="tab tab-1">
+			<table id="table" border="1" >
+				<caption> Current Menu
+				<tr>
+					<th>Food Type</th>
+					<th>Food Name</th>
+					<th>Price</th>
+				</tr>
+				<tr>
+					<td>Main</td>
+					<td>Burger</td>
+					<td>12.99</td>
+				</tr>
+				<tr>
+					<td>Side</td>
+					<td>Fries</td>
+					<td>4.99</td>
+				</tr>
+				<tr>
+					<td>Drink</td>
+					<td>Water</td>
+					<td>1.99</td>
+				</tr>
+			</table>
+			<div class="tab-2 tab-2">
+				
+				<label id="typeButton">Food Type: </label>
+				<select id="type" name="type">
+						<option value="">
+		    			<option value="Main">Main Dishes
+		   				<option value="Side">Side Dishes
+		 				<option value="Drink">Drinks 
+					</select>
+		
+			    Food Name: <input type="text" name="name" id ="name">
+				Price: <input type="text" name="price" id ="price">
+				
+				<button id="action" onclick="addItem();">Add </button>
+				<button id="action" onclick="editItem();">Edit </button>
+				<button id="actions" onclick="removeItem();">Remove </button>
+				<form action="interface.html">
+					<button id="done" class="done"> DONE</button>
+				</form>				
+
+			</div>
+		
+		<script>
+			
+			var rowNum, table = document.getElementById("table");
+			
+			//function to add an item into the table
+			function addItem(){
+				if (!checkInput()){
+				var newRow = table.insertRow(table.length),
+					cell1 = newRow.insertCell (0),
+					cell2 = newRow.insertCell (1),
+					cell3 = newRow.insertCell (2),
+					type = document.getElementById("type").value,
+					name = document.getElementById("name").value,
+					price = document.getElementById("price").value;
+					
+					cell1.innerHTML = type;
+					cell2.innerHTML = name;
+					cell3.innerHTML = price;
+					
+					selectItem();
+			}
+		}	
+			//function to show item in table if clicked
+			function selectItem(){
+				
+				for(var i =1; i<table.rows.length; i++){
+					table.rows[i].onclick = function(){
+						rowNum = this.rowIndex;
+						document.getElementById("type").value = this.cells[0].innerHTML;
+						document.getElementById("name").value = this.cells[1].innerHTML;
+						document.getElementById("price").value = this.cells[2].innerHTML;
+					};	
+				}
+			}
+			selectItem();
+			
+			function editItem(){
+				var type = document.getElementById("type").value,
+					name = document.getElementById("name").value,
+					price = document.getElementById("price").value;
+				
+				if (!checkInput()){
+				table.rows[rowNum].cells[0].innerHTML = type;
+				table.rows[rowNum].cells[1].innerHTML = name;
+				table.rows[rowNum].cells[2].innerHTML = price;
+			}
+		}
+			
+			function removeItem(){
+				table.deleteRow (rowNum);
+				
+				document.getElementById("type").value="";	
+				document.getElementById("name").value="";	
+				document.getElementById("price").value="";	
+			}
+			
+			function checkInput(){
+				var isEmpty = false,
+				type = document.getElementById("type").value,
+				name = document.getElementById("name").value,
+				price = document.getElementById("price").value;
+				
+				if (type==""){
+					alert("Food Type Cannot Be Empty");
+					isEmpty=true;
+				}
+				else if (name==""){
+					alert("Food Name Cannot Be Empty");
+					isEmpty=true;
+				}
+				else if (price==""){
+					alert("Food Price Cannot Be Empty");
+					isEmpty=true;
+				}
+				return isEmpty;
+			}
+			</script>
+		
+		
+	</body>
+					
+</html>
