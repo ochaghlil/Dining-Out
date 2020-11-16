@@ -1,0 +1,306 @@
+<html>
+<head>
+	<style type="text/css">
+		
+		body{background-color:#7ea3ccff;}
+		
+		#table{position:absolute; top:90px; left:90px;}
+		#sideButton{position:absolute; top:130px; left:600px;}
+		#mainButton{position:absolute; top:230px; left:600px;}
+		#dessertButton{position:absolute; top:330px; left:600px;}
+		#table2{position:absolute; top:110px; left:870px;}
+		#table3{position:absolute; top:110px; left:870px;}
+		#table4{position:absolute; top:110px; left:870px;}
+
+		#mainTableDiv{
+			height:450px;
+			width:430px;
+			overflow-y:auto;
+		}
+	
+
+		.dish{position:relative; left:5px; font-size:25px;}
+		.price{position:relative;  left:150px; font-size:25px;}
+		.addbtn{position:relative; left:200px; font-size:20px; }
+
+		.headClass{position:absolute; top:60px; left:1050px;}
+		.menuClass{position:absolute; top:130px; left:870px;}
+		.sideClass{position:absolute; top:130px; left:870px;}
+		.desClass{position:absolute; top:130px; left:870px;}
+		.orderClass{position:absolute; top:130px; left:100px;}	
+		.Total{position:absolute; top:480px; left:110px;}
+		.descriptiono{display:none;}
+	
+	
+		#receipt{position:absolute; top:50px; left:1150px; cursor:pointer;}
+		.receipt {border-radius:55%; padding:10px; text-align:center;}
+	
+		#logout{position:absolute; top:630px; left:1130px; cursor:pointer;background-color:#b3001bff;}
+		.logout {width:140px;font-size:25px;}
+	
+		#clockOut{position:absolute; top:620px; left:870px; cursor:pointer;background-color:blue;}
+		.clockOut {width:100px;font-size:25px; }
+	
+		#addEmployee{position:absolute; top:40px; left:130px; cursor:pointer;background-color:orange;}
+		.addEmployee {width:110px;font-size:15px;}
+	
+		#changeTable{position:absolute; top:620px; left:90px; cursor:pointer;background-color:brown;}
+		.changeTable {width:80px;font-size:15px;}
+	
+	
+		.button {background-color:green; padding:20px; cursor:pointer;}
+		.foodButton {border:4px solid black;background-color:orange;  padding:20px; cursor:pointer;}
+	
+		.button1 {width:150px;}
+		.button2 {width:150px;}
+		.button3 {width:150px;}
+	
+		#edit{position:absolute; top:590px; left:1030px; cursor:pointer;background-color:white;}
+		.edit{border-radius:90%; padding:10px; text-align:center;}
+	
+		#bigWrapper{border:1px solid red; width:1300px; margin:20px auto;  }
+				
+		table{border:5px solid black;}
+	
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style>
+		* {box-sizing: border-box;}
+
+		body {font: 16px Arial; }
+
+		/*the container must be positioned relative:*/
+		.autocomplete {
+			position: relative;
+			display: inline-block;
+		}
+
+		input {
+			border: 1px solid transparent;
+			background-color: #FF4E4E;
+			padding: 10px;
+			font-size: 16px;
+		}
+
+		input[type=text] {
+			background-color: #8FC8FF;
+			width: 100%;
+		}
+
+		input[type=Add] {
+			background-color: DodgerBlue;
+			color: #fff;
+			cursor: pointer;
+		}
+
+		.autocomplete-items {
+			position: absolute;
+			border: 1px solid #d4d4d4;
+			border-bottom: none;
+			border-top: none;
+			z-index: 99;
+			/*position the autocomplete items to be the same width as the container:*/
+			top: 100%;
+			left: 0;
+			right: 0;
+		}
+
+		.autocomplete-items div {
+			padding: 10px;
+			cursor: pointer;
+			background-color: #fff; 
+			border-bottom: 1px solid #d4d4d4; 
+		}
+
+		/*when hovering an item:*/
+		.autocomplete-items div:hover {
+			background-color: #e9e9e9; 
+		}
+
+		/*when navigating through the items using the arrow keys:*/
+		.autocomplete-active {
+			background-color: DodgerBlue !important; 
+			color: #54ABFF 
+		}
+		#search{position:absolute; top:15px; left:630px;}
+		#searchDiv{position:absolute; top:70px; left:510px;}
+		#searchAdd{position:absolute; top:70px; left:820px;}
+	
+		</style>
+	
+		<title>Main Page</title>
+		<script src="cart.js" asynch></script>	<!-- the javascript  -->
+	</head>
+	
+	<body id="bigWrapper">	
+	
+		<!--table to see the order-->
+		<table  style="width:400px; height:500px" id="table" >
+			<caption>YOUR ORDER</caption>
+			<tr> </tr>
+		
+		</table>
+	
+		<!--buttons to see the dishes-->
+		<button id="sideButton" class="button button1" onclick="sideD()" > SIDE DISHES </button>
+		<button id="mainButton" class="button button2" onclick="mainD()"> MAIN DISHES </button>
+		<button id="dessertButton" class="button button3" onclick="desD()"> DESSERT</button>
+		<p id="demo"></p>
+	
+
+		<h2 id="search">Search</h2>
+
+		<!--Make sure the form has the autocomplete function switched off:-->
+		<form autocomplete="off" action="/action_page.php">
+			<div id="searchDiv" class="autocomplete" style="width:300px;">
+				<input id="myInput" type="text" name="myCountry" placeholder="Enter Item">
+			</div>
+			<input id="searchAdd" type="submit" >
+		</form>
+	
+	
+	
+		<!--table to see the menu. It'll change according to the dish-->
+		<table style="width:400px; height:500px" id="table3">
+		</table>
+	
+	
+		<table style="width:400px; height:500px" id="table2">
+	
+		</table>
+		<table style="width:400px; height:500px" id="table4">
+		</table>
+	
+		<button id="receipt" class="receipt receipt" onclick="printsend()"> PAY OPTIONS</button>
+	
+		<form action="logIn.html">
+			<button id="logout"  class="logout logout"> LOG OUT</button>
+		</form>
+	
+		<form action="ClockIn.html">
+			<button id="clockOut"  class="clockOut"> CLOCK OUT</button>
+		</form>
+	
+		<form action="editMenu.html">
+			<button id="edit" class="edit">EDIT MENU</button>
+		</form>
+	
+		<form action="search.html">
+			<button id="addEmployee" class="addEmployee">EDIT EMPLOYEES</button>
+		</form>
+	
+		<form action="tables.html">
+			<button id="changeTable" class="changeTable">Change Table</button>
+		</form>
+	
+		<!--stuff Ian did-->
+		<h2 class="headClass" id="menuH"> MENU</h2>		<!-- These are all for test purposes, structure must stay same but neds to be replaced to read from database-->
+		<section class="menuClass" id="menuC" >
+			<div id="mainTableDiv">
+				<div class="item">
+					<span class="dish">Burger</span>
+					<span class="price">6.99</span>
+					<span class="type main" ></span>
+					<button class="addbtn" type="button">ADD</button>
+				</div>
+		
+			</section>
+			<section class="sideClass" id="sideC" >
+				<div id="mainTableDiv">
+					<div class="item">
+						<span class="dish">Fries</span>
+						<span class="price">3.99</span>
+						<span class="type main" ></span>
+						<button class="addbtn" type="button">ADD</button>
+					</div>
+	
+					<div class="item">
+						<span class="dish">Nachos</span>
+						<span class="price">5.99</span>
+						<span class="type main" ></span>
+						<button class="addbtn" type="button">ADD</button>
+					</div>
+				</section>
+				<section class="desClass" id="desC" >
+					<div id="mainTableDiv">
+						<div class="item">
+							<span class="dish">Ice Cream</span>
+							<span class="price">4.99</span>
+							<span class="type main" ></span>
+							<button class="addbtn" type="button">ADD</button>
+						</div>
+	
+						<div class="item">
+							<span class="dish">Doughnut</span>
+							<span class="price">0.99</span>
+							<span class="type main" ></span>
+							<button class="addbtn" type="button">ADD</button>
+						</div>
+					</section>
+					<section class="orderClass" id="orderC">		<!-- where the order is stored -->
+						<div class="ordered">
+						</div>
+						<div class="Total">
+							<span class="totalc">$0.00</span>		<!-- Where the total is stored -->
+						</div>
+					</section>
+					<script>
+						function test(){
+							alert("e");
+						}
+						var t1 = document.getElementById("table2")
+						var t2 = document.getElementById("table3")
+						var t3 = document.getElementById("table4")
+
+
+						var mainC = document.getElementById("menuC")
+						var sideC = document.getElementById("sideC")
+						var desC = document.getElementById("desC")
+						var menC = document.getElementById("menuH")
+
+						menC.style.display = "block"
+						t2.style.display = "block"
+						t1.style.display = "none"
+						t3.style.display = "none"
+						function mainD(){				//Display the menus by section
+							mainC.style.display = "block"
+							sideC.style.display = "none"
+							desC.style.display = "none"
+							menC.style.display = "block"
+						}
+						function sideD(){				//ditto
+							mainC.style.display = "none"
+							sideC.style.display = "block"
+							desC.style.display = "none"
+							menC.style.display = "block"
+						}
+						function desD(){				//ditto
+							mainC.style.display = "none"
+							desC.style.display = "block"
+							sideC.style.display = "none"
+							menC.style.display = "block"
+						}
+						mainD();	//to load an inital menu
+		
+		
+						function getCookie(cname) {
+							var name = cname + "=";
+							var decodedCookie = decodeURIComponent(document.cookie);
+							var ca = decodedCookie.split(';');
+							for(var i = 0; i <ca.length; i++) {
+								var c = ca[i];
+								while (c.charAt(0) == ' ') {
+									c = c.substring(1);
+								}
+								if (c.indexOf(name) == 0) {
+									return c.substring(name.length, c.length);
+								}
+							}
+							return "";
+						}
+						document.getElementsByClassName("nameplace")[0].innerText = getCookie("tablenum")
+						</script>		
+	
+	
+	</body>
+
+</html>
