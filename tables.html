@@ -1,0 +1,207 @@
+<html>
+<head>
+		<style type="text/css">
+		
+			body{background-color:#7ea3ccff;}
+			
+			#table1{position:absolute; top:100px; left:220px;}
+			#table2{position:absolute; top:100px; left:920px;}
+			#table3{position:absolute; top:250px; left:570px; }
+			#table4{position:absolute; top:400px; left:220px;}
+			#table5{position:absolute; top:400px; left:920px;}
+			#t{position:absolute; top:400px;left:535px;}			
+			
+			.free {font-size:70px;background-color:green; padding:10px; border-radius:20px; box-shadow:0 10px gray;}
+			.free:hover{cursor:pointer; background-color:#3e8e41;}
+			.free:active{background-color:#3e8e41; box-shadow:0 6px #666; transform:translateY(4px);}
+			
+			.ocupied {font-size:70px;background-color:red; padding:10px; border-radius:20px; box-shadow:0 10px gray;}
+			.ocupied:hover{cursor:pointer; background-color:#FE4444;}
+			.ocupied:active{background-color:#FE4444; box-shadow:0 6px #666; transform:translateY(4px);}
+			#logout{position:absolute; top:630px; left:1130px; cursor:pointer;background-color:red;}
+			.logout {width:150px;font-size:25px;}
+			
+			
+		</style>
+		
+	<title>Tables Selection</title>
+	
+</head>
+<body>
+	<canvas id="t" width="360" height="360"></canvas>
+	<button id="table1" class="free" onclick="addclick()"> TABLE 1 </button>
+	<button id="table2" class="free" onclick="addclick()"> TABLE 2 </button>
+	<button id="table3" class="free" onclick="addclick()"> TABLE 3 </button>
+	<button id="table4" class="free" onclick="addclick()"> TABLE 4 </button>
+	<button id="table5" class="free" onclick="addclick()"> TABLE 5 </button>
+	
+	</form>
+	
+	
+	
+	
+	<form action="login.html">
+		<button id="logout"  class="logout logout"> BACK</button>
+	</form>
+	
+	
+	
+	
+	
+	<script>																														
+
+			//game
+			window.onload=function() {
+				canv=document.getElementById("t");
+				ctx=canv.getContext("2d");
+				document.addEventListener("keydown",keyPush);
+				setInterval(game,1000/15);
+			}
+			px=py=10; // snake position
+			gs=tc=19; //grid size and tile count
+			ax=ay=15; //position of first apple
+			xv=yv=0; //x and y velocity
+			trail=[];
+			tail=5;
+	
+			function game() {
+				px+=xv;
+				py+=yv;
+				if(px<0) {
+					px= tc-1;
+				}
+				if(px>tc-1) {
+					px= 0;
+				}
+				if(py<0) {
+					py= tc-1;
+				}
+				if(py>tc-1) {
+					py= 0;
+				}
+				ctx.fillStyle="black";
+				ctx.fillRect(0,0,canv.width,canv.height);
+	
+				ctx.fillStyle="lime";
+				for (var i=0;i<trail.length; i++){
+					ctx.fillRect(trail[i].x*gs,trail[i].y*gs,gs-2,gs-2);
+					if (trail[i].x==px && trail[i].y==py){
+						tail = 5;
+					}
+				}
+				trail.push({x:px,y:py});
+				while (trail.length>tail){
+					trail.shift();
+				}
+				if (ax==px && ay==py){
+					tail++;
+					ax=Math.floor(Math.random()*tc);
+					ay=Math.floor(Math.random()*tc);
+				}
+				ctx.fillStyle="red";
+				ctx.fillRect(ax*gs, ay*gs, gs-2, gs-2);		
+			}
+			function keyPush(evt){
+				switch (evt.keyCode){
+				case 37:
+					xv=-1; yv=0;
+					break;
+				case 38:
+					xv=0; yv=-1;
+					break;
+				case 39:
+					xv=1; yv=0;
+					break;
+				case 40:
+					xv=0; yv=1;
+					break;
+				}
+			}
+	
+
+	if(getCookie("table1") == "1"){
+		var x = document.getElementById("table1")
+		x.classList.replace('free', 'ocupied')
+		x.onclick = function() {remclick()}
+		rfsh()
+	}
+	if(getCookie("table2") == "1"){
+		var x = document.getElementById("table2")
+		x.classList.replace('free', 'ocupied')
+		x.onclick = function() {remclick()}
+		rfsh()
+	}
+	if(getCookie("table3") == "1"){
+		var x = document.getElementById("table3")
+		x.classList.replace('free', 'ocupied')
+		x.onclick = function() {remclick()}
+		rfsh()
+	}
+	if(getCookie("table4") == "1"){
+		var x = document.getElementById("table4")
+		x.classList.replace('free', 'ocupied')
+		x.onclick = function() {remclick()}
+		rfsh()
+	}
+	if(getCookie("table5") == "1"){
+		var x = document.getElementById("table5")
+		x.classList.replace('free', 'ocupied')
+		x.onclick = function() {remclick()}
+		rfsh()
+	}
+	
+	
+	function addclick(){
+		var button = event.target
+		button.classList.replace('free', 'ocupied')
+		button.onclick = function() {remclick()}
+		rfsh()
+		document.cookie="tablenum=" + button.id + ";"
+		document.cookie=button.id + "=1;"
+		rfsh()
+		window.location.href="interface.html"
+	}
+	function remclick(){
+		var button = event.target
+		button.classList.replace('ocupied', 'free')
+		button.onclick = function() {addclick()}
+		document.cookie=button.id + "=0;"
+		rfsh()
+	}
+	function rfsh(){
+		var x = document.getElementsByClassName('free')
+		var showthis = document.getElementById("t")
+		if(x.length == 0){
+			showthis.style.display = "block"
+		}
+		else{
+			showthis.style.display = "none"
+		}
+	}
+	
+	
+	rfsh()
+	
+	
+	function getCookie(cname) {
+		var name = cname + "=";
+		var decodedCookie = decodeURIComponent(document.cookie);
+		var ca = decodedCookie.split(';');
+		for(var i = 0; i <ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0) == ' ') {
+			c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+			}
+		}
+		return "";
+	}
+	
+	</script>
+
+
+</body>
+
+</html>
