@@ -1,46 +1,81 @@
 <html>
 <head>
-		<style type="text/css">
+		<link rel="stylesheet" type="text/css" href= "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 		
-			body{background-color:#2F4446;}
+		<style>
+			body{background-color:#7ea3ccff;background-image: url('burgerPic.jpg');background-repeat: no-repeat;
+  background-size: 100% 100%;}
 			
-			h1{text-align:center; font-size:60px;color:green; border:dashed 3px red; }
+			h1{text-align:center; font-size:60px;color:#00ff15; border:dashed 3px red; position:absolute;top:40px;left:27%;text-shadow: 4px 4px #FF0000;}
 			
-			#idButton{position:absolute; font-size:20px;top:250px; left:400px;}
-			#idButton1{position:absolute; top:250px; left:530px;}
-			#passButton{position:absolute; font-size:20px; top:280px; left:400px;}
-			#passButton1{position:absolute; top:280px; left:530px;}
-			#submitButton{position:absolute; top:310px; left:530px; cursor:pointer; background-color:green;}
+			
+			
+			#bigWrapper{border:1px solid red; width:1000px; margin:20px auto; text-align:center;}
+			
+			.login-box{
+				font-weight:bold;
+				max-width:700px;
+				float:none;
+				margin:150px auto;
+			}
+			.login-left{
+				background:rgba(211, 211, 211, 0.5);
+				padding: 30px;
+			}
+			.login-right{
+				background: rgba(160, 160, 150, .7);
+				padding: 30px;
+			}
 		</style>
 		<title>Log In</title>
 	
 </head>
-<body>
+<body id="bigWrapper">
 	
-	<h1>Welcome to Dining-Out!</h1>
-<form action="tables.html">
-	<label id="idButton" for="ID">Employee ID: </label>
-	<input id ="idButton1" type="text" id="ID" name="ID"> <br><br>
-	<label id="passButton" for="pass">Password: </label>
-	<input id="passButton1" type="text" id="pass" name="pass"> <br><br>
-	<input id="submitButton" type="submit" value="Submit" onclick="logIn(idButton1, passButton1)">
-</form>
-
-<script>
-	/*
-	function logIn(int id, char pass){
-		this.id = 1;
-		this.pass = pass;
-		if (id==1 && pass.equals"pass"){
-			<a href="interface.html">;
-		}
-		else {
-			document.write("Wrong combination")
-		}
-	}	
-	*/
-	
-</script>
+		
+<div class="container">
+	<div class="login-box">
+	<div class="row">
+		<div class="col-md-6 login-left">
+			<h2>Log In Here</h2>
+			<form action="validation.php" method="post">
+				
+				<div class="form-group">
+					<label>Name</label>
+					<input type="text" name="name" class="form-control" placeholder="Name" required>
+				</div>
+				<div class="form-group">
+					<label>Employee ID</label>
+					<input type="password" name="id" class="form-control" placeholder="ID" required>
+				</div>	
+							
+				<button type="submit" class="btn btn-primary">Log In</button>
+			</form>
+		</div>
+		
+		<div class="col-md-6 login-right">
+			<h2>Register Here</h2>
+			<form action="registration.php" method="post">
+			
+				<div class="form-group">
+					<label>Name</label>
+					<input type="text" name="name" class="form-control" placeholder="Name" required>
+				</div>
+		<div class="form-group">
+					<label>Employee ID</label>
+					<input type="password" name="id" class="form-control" placeholder="ID" required>
+				</div>
+				
+				<button type="submit" class="btn btn-primary">Register</button>
+			</form>
+		</div>
+		
+	</div>
+		
+</div>	
+		
+		<h1>Welcome to Dining Out!</h1>
+		
 
 </body>
 
