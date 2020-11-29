@@ -1,0 +1,322 @@
+<?php
+include_once 'dbh.php';
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<style type="text/css">
+		
+		/* CSS HEX colors
+		--firebrick: #b3001bff;
+		--eerie-black: #262626ff;
+		--lapis-lazuli: #255c99ff;
+		--iceberg: #7ea3ccff;
+		--tan: #ccad8fff;
+		--cotton-candy: #f4bfdbff;
+		--lavender-blush: #ffe9f3ff;
+		--green-sheen: #87baabff;
+		--lavender-gray: #cac4ceff;
+			*/
+		
+		body{background-color:#7ea3ccff;}
+		
+		#OrderTable{position:absolute; top:90px; left:90px;border:3px solid black;}
+		
+		#div2{height:200px;width:400px;overflow-y:auto;}
+		#menuTable{position:absolute;top:90px;left:850px; height:200px;width:400px;overflow-y:scroll;}
+		td{padding:5px; border-bottom:3px solid black ; font-size:25px;}
+		caption{font-size:30px;color:#262626ff;}	
+		
+		#mainButton{position:absolute; top:150px; left:600px;}
+		#sideButton{position:absolute; top:350px; left:600px;}
+		#dessertButton{position:absolute; top:550px; left:600px;}
+		
+		
+		.dish{position:relative; left:5px; font-size:25px;}
+		.price{position:relative;  left:150px; font-size:25px;}
+		.addbtn{position:relative; left:200px; font-size:20px; }
+		/*
+		.headClass{position:absolute; top:60px; left:1050px;}
+		.menuClass{position:absolute; top:130px; left:870px;}
+		.sideClass{position:absolute; top:130px; left:870px;}
+		.desClass{position:absolute; top:130px; left:870px;}
+		*/
+		.nameplace{position:absolute; top:63px; left:370px;}
+		
+		.orderClass{position:absolute; top:130px; left:100px;}	
+		.Total{position:absolute; top:480px; left:110px;}
+		.descriptiono{display:none;}
+	
+	
+		#receipt{position:absolute; top:50px; left:1150px; cursor:pointer; background-color:#dddb6a;}
+		.receipt {border-radius:55%; padding:10px; text-align:center;}
+	
+		#logout{position:absolute; top:650px; left:1160px; cursor:pointer;background-color:#da1212;}
+		.logout {width:140px;font-size:25px;}
+	
+		#clockOut{position:absolute; top:650px; left:870px; cursor:pointer;background-color:#fd3a69;}
+		.clockOut {width:100px;font-size:20px; }
+	
+		#addEmployee{position:absolute; top:30px; left:90px; cursor:pointer;background-color:#dddb6a;}
+		.addEmployee {width:110px;font-size:15px;}
+	
+		#changeTable{position:absolute; top:640px; left:90px; cursor:pointer;background-color:#da1212;}
+		.changeTable {width:80px;font-size:15px;}
+	
+		.button {background-color:#51af5b; padding:20px; cursor:pointer; radius:40px;}
+			
+		.foodButton {border:4px solid black;background-color:orange;  padding:20px; cursor:pointer;}
+	
+		.button1 {width:150px;}
+		.button2 {width:150px;}
+		.button3 {width:150px;}
+	
+		#edit{position:absolute; top:606px; left:1015px; cursor:pointer;background-color:#dddb6a;}
+		.edit{border-radius:90%; padding:10px; text-align:center;}
+						
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style>
+		* {box-sizing: border-box;}
+
+		body {font: 16px Arial; }
+
+		#search{position:absolute; top:50px; left:595px;}
+	
+
+
+		</style>
+	
+		<title>Main Page</title>
+		<script src="cart.js" asynch></script>	<!-- the javascript  -->
+	</head>
+	
+	<body id="bigWrapper">	
+	
+		<!--table to see the order-->
+		<table  style="width:400px; height:500px" id="OrderTable" >
+			<caption>YOUR ORDER FOR</caption>
+			<tr> </tr>
+		
+		</table>
+	
+	
+
+	<!--search: -->	
+	<?php
+			
+	$output = NULL;
+	
+	if(isset($_POST['submit'])) {
+		
+		$search = $conn-> real_escape_string($_POST['search']);
+		
+		//query the database:
+		$resultSet = $conn->query("SELECT * FROM Food_Item WHERE Food_Name LIKE '%$search%' ;");
+		
+		
+		if($resultSet->num_rows > 0){
+			while ($row = $resultSet->fetch_assoc()) 
+			{
+				
+				$name = $row['Food_Name'];
+				$price = $row['Food_Price'];
+				
+				$output .= "$name  Price: $$price <br>";
+			}
+		}
+		else {
+			$output = "No Results.";
+		}
+	}		
+	?>
+	
+	<form method="POST" id="search">
+		<input type="TEXT" name="search" placeholder="Food Name"/>
+		<input type="SUBMIT" name="submit" value="Search"/>
+		
+		<?echo $output;?>
+	</form>			
+
+	
+		<button id="receipt" class="receipt receipt" onclick="printsend()"> PAY OPTIONS</button>
+	
+		<form action="logIn.php">
+			<button id="logout"  class="logout logout"> LOG OUT</button>
+		</form>
+	
+		<form action="ClockIn.html">
+			<button id="clockOut"  class="clockOut"> CLOCK OUT</button>
+		</form>
+	
+		<form action="editMenu.php">
+			<button id="edit" class="edit">EDIT MENU</button>
+		</form>
+	
+		<form action="editEmployee.php">
+			<button id="addEmployee" class="addEmployee">EDIT EMPLOYEES</button>
+		</form>
+	
+		<form action="tables.html">
+			<button id="changeTable" class="changeTable">Change Table</button>
+		</form>
+	
+		<!--stuff Ian did-->
+
+		<h2 class="nameplace"></h2>
+
+					<script>
+						function test(){
+							alert("e");
+						}
+					
+						var mainC = document.getElementById("menuC")
+						var sideC = document.getElementById("sideC")
+						var desC = document.getElementById("desC")
+						var menC = document.getElementById("menuH")
+
+						menC.style.display = "block"
+						t2.style.display = "block"
+						t1.style.display = "none"
+						t3.style.display = "none"
+						function mainD(){				//Display the menus by section
+							mainC.style.display = "block"
+							sideC.style.display = "none"
+							desC.style.display = "none"
+							menC.style.display = "block"
+						}
+						function sideD(){				//ditto
+							mainC.style.display = "none"
+							sideC.style.display = "block"
+							desC.style.display = "none"
+							menC.style.display = "block"
+						}
+						function desD(){				//ditto
+							mainC.style.display = "none"
+							desC.style.display = "block"
+							sideC.style.display = "none"
+							menC.style.display = "block"
+						}
+						mainD();	//to load an inital menu
+		
+		
+						function getCookie(cname) {
+							var name = cname + "=";
+							var decodedCookie = decodeURIComponent(document.cookie);
+							var ca = decodedCookie.split(';');
+							for(var i = 0; i <ca.length; i++) {
+								var c = ca[i];
+								while (c.charAt(0) == ' ') {
+									c = c.substring(1);
+								}
+								if (c.indexOf(name) == 0) {
+									return c.substring(name.length, c.length);
+								}
+							}
+							return "";
+						} 
+						document.getElementsByClassName("nameplace")[0].innerText = getCookie("tablenum")
+						
+						///////////////////////////////////////////
+						
+
+						</script>		
+
+
+
+	<!--Database items and SQL queries to see menu and c\hange accordingly-->
+	<div id="div2">
+		<table id="menuTable">
+			<caption> MENU </caption>
+			<th> Food Name </th>
+			<th> Price </th>
+			<form id="form"  method="POST">
+		
+		<!--buttons to see the dishes-->
+	<div class="container1">
+		<button id="mainButton" type="submit" name="main" class="button button2" onclick="mainD()"> MAIN DISHES </button>
+	</div>
+
+	<div class="container2">
+		<button id="sideButton" type="submit" name="side" class="button button1" onclick="sideD()" > SIDE DISHES </button>
+	</div>
+
+	<div class="container3">
+		<button id="dessertButton" type="submit" name="dessert" class="button button3" onclick="desD()"> DESSERT</button>
+	</div>
+		</form>
+		
+	<?php
+		$conn = new mysqli("localhost","root","password","Dining-Out");
+	   //sql statement to select parts of a table
+		$sql = "SELECT * FROM Food_Item WHERE Category_ID = '7' ;";
+		//query to get the items 
+		$result = mysqli_query($conn, $sql);
+		//check if database connection didn't work properly
+		$resultCheck = mysqli_num_rows($result);
+		
+		/*loop to print items in database 
+		while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
+			echo "<tr>";
+			echo "<td>".$row['Food_Name']."</td>";
+			echo "<td>". "$". $row['Food_Price']."</td>";
+	
+		}
+		*/
+
+		if (isset($_POST['main'])){
+			$sql = "SELECT * FROM Food_Item WHERE Category_ID='7';";
+			//query to get the items 
+			$result = mysqli_query($conn, $sql);
+			//check if database connection didn't work properly
+			$resultCheck = mysqli_num_rows($result);
+		
+			//loop to print items in database
+			while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
+				echo "<tr>";
+				echo "<td>".$row['Food_Name']."</td>";
+				echo "<td>". "$". $row['Food_Price']."</td>";
+	
+			}
+		}
+			
+		else if (isset($_POST['side'])){
+			$sql = "SELECT * FROM Food_Item WHERE Category_ID='8';";
+			//query to get the items 
+			$result = mysqli_query($conn, $sql);
+			//check if database connection didn't work properly
+			$resultCheck = mysqli_num_rows($result);
+		
+			//loop to print items in database
+			while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
+				echo "<tr>";
+				echo "<td>".$row['Food_Name']."</td>";
+				echo "<td>". "$". $row['Food_Price']."</td>";
+	
+			}
+		}
+		
+		elseif (isset($_POST['dessert'])){
+			$sql = "SELECT * FROM Food_Item WHERE Category_ID='9';";
+			//query to get the items 
+			$result = mysqli_query($conn, $sql);
+			//check if database connection didn't work properly
+			$resultCheck = mysqli_num_rows($result);
+		
+			//loop to print items in database
+			while($row = mysqli_fetch_array($result)){   //Creates a loop to loop through results
+				echo "<tr>";
+				echo "<td>".$row['Food_Name']."</td>";
+				echo "<td>". "$". $row['Food_Price']."</td>";
+	
+			}	
+		}				
+	?>
+	
+</div>
+	</table>
+	
+</body>
+
+</html>
