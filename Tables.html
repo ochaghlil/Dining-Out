@@ -2,16 +2,16 @@
 <head>
 		<style type="text/css">
 		
-			body{background-color:#7ACBFF;}
+			body{background-color:#7ea3ccff;}
 			
-			#table1{position:absolute; top:100px; left:100px;}
-			#table2{position:absolute; top:100px; left:800px;}
-			#table3{position:absolute; top:250px; left:450px; }
-			#table4{position:absolute; top:400px; left:100px;}
-			#table5{position:absolute; top:400px; left:800px;}
-			#t{position:relative; top:510px;left:400px;}
+			#table1{position:absolute; top:100px; left:220px;}
+			#table2{position:absolute; top:100px; left:920px;}
+			#table3{position:absolute; top:250px; left:570px; }
+			#table4{position:absolute; top:400px; left:220px;}
+			#table5{position:absolute; top:400px; left:920px;}
+			#t{position:absolute; top:400px;left:535px;}			
 			
-			.free {font-size:70px;background-color:green; padding:10px; border-radius:20px; box-shadow:0 10px gray;}
+			.free {font-size:70px;background-color:green; padding:10px; border-radius:20px; 					box-shadow:0 10px gray;}
 			.free:hover{cursor:pointer; background-color:#3e8e41;}
 			.free:active{background-color:#3e8e41; box-shadow:0 6px #666; transform:translateY(4px);}
 			
@@ -37,19 +37,12 @@
 	
 	</form>
 	
-	
-	
-	
 	<form action="login.html">
 		<button id="logout"  class="logout logout"> BACK</button>
 	</form>
 	
 	
-	
-	
-	
 	<script>																														
-
 			//game
 			window.onload=function() {
 				canv=document.getElementById("t");
@@ -159,7 +152,7 @@
 		document.cookie="tablenum=" + button.id + ";"
 		document.cookie=button.id + "=1;"
 		rfsh()
-		window.location.href="interface.html"
+		window.location.href="interface.php"
 	}
 	function remclick(){
 		var button = event.target
