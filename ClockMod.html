@@ -1,0 +1,86 @@
+<html>
+<head>
+<style type="text/css">
+body{background-color:#7ea3ccff;}
+#time{font-size:50px;color:red;border:solid;border-color:green;border-width:8px;}
+h1{text-align:center; font-size:60px;color:green; border:dashed 3px red; }
+.button {border-radius: 4px;background-color:#00ff15;border: none;color: #black;text-align: center;font-size: 18px;padding: 10px;width: 130px;transition: all 0.5s;cursor: pointer;margin: 5px;}
+.button span {cursor: pointer;display: inline-block;position: relative;transition: 0.5s;}
+.button span:after {content: '\00bb';position: absolute;opacity: 0;top: 0;right: -20px;transition: 0.5s;}
+.button:hover span {padding-right: 10px;}
+.button:hover span:after{opacity: 1;right: 0;}
+</style>
+<h1>The Current Time Is:</h1>
+<p id="time"></p>
+
+
+<script>
+//function to see time displayed.
+var myVar = setInterval(myTimer);
+function myTimer() {
+	var d = new Date();
+	document.getElementById("time").innerHTML = d.toLocaleTimeString();
+}
+ 
+function WriteCookie(){
+//function that creates cookie.
+var employeevalue=escape(document.myform.employee.value);
+if(document.myform.employee.value==""){
+alert("Write something in the text input.");
+return;
+}
+document.cookie="name=" + employeevalue;
+alert(employeevalue + " is now clocked in.");
+}
+
+
+function punchIn() {
+//function that displays current local time.
+	if(document.myform.employee.value==""){
+alert("Write something in the text input.");
+return;
+}	var d = new Date();
+	var myVar = setInterval(punchIn, 1000);
+	document.getElementById("time").innerHTML = d.toLocaleTimeString();
+	document.write(name + "Your clock in time is: " + d +"<br />");
+
+}
+
+function punchOut() {
+//local time displayed
+if(document.myform.employee.value==""){
+alert("Write something in the text input.");
+return;
+}
+var d = new Date();
+var myVar = setInterval(punchOut, 1000);
+document.getElementById("time").innerHTML = d.toLocaleTimeString();
+document.write(name + "Your clock out time is: " + d +"<br />");
+}
+
+function redirect(){
+//function that redirects user to tables page after clock-in and displays an alert to confirm.
+window.location = "tables.html";
+alert('Welcome to FIJO!  You are clocked-in!!  Enjoy your shift!!!');
+
+}
+function redirectTwo(){
+//function that redirects user to the login page after clock-out and displays an alert to confirm.
+//-----OLD LOCATION------>window.location = "login.html";
+window.location = "login.php;"
+alert('You are clocked-out!!  Enjoy your night!!!');
+}
+
+</script>
+<body>
+<form name="myform" action="">
+Enter name: <input type="text" name="employee"/>
+<button class ="button "input type="button"  onclick="WriteCookie();"><span>Verify Name<span/></button>
+<button class="button" onclick="punchIn();setTimeout(redirect, 3000);"><span>Start Shift</span></button>
+<button class="button" onclick="punchOut();setTimeout(redirectTwo, 2000);"><span>End Shift</span></button>
+</form>
+
+</body>
+ 
+
+ </html>
