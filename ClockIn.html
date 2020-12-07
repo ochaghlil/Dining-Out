@@ -3,119 +3,131 @@
 
 
 
-<!--
-This page functions as more of a login page rather than a clock-in page.  It allows access to a reference page that is chosen if the 
-credentials that the user enters are valid.  If not the user is blocked.
-Right below is where we can attach this document to a style sheet and JS file.  I just need the code below copied so it will work.
-Also, line 86 has the reference that can be inserted to where we want to go after clocking/logging in.
-<link rel="stylesheet" href="INSERTLINK.css"> <script src="INSERTLINK.js"></script>
--->
+	<!--
+    This page functions as more of a login page rather than a clock-in page.  It allows access to a reference page that is chosen if the
+    credentials that the user enters are valid.  If not the user is blocked.
+    Right below is where we can attach this document to a style sheet and JS file.  I just need the code below copied so it will work.
+    Also, line 86 has the reference that can be inserted to where we want to go after clocking/logging in.
+    <link rel="stylesheet" href="INSERTLINK.css"> <script src="INSERTLINK.js"></script>
+    -->
 
 
-<style type="text/css">
-	
-	body{background-color:#7ea3ccff;}
-h2{text-align:center; font-size:60px;color:green; border:dashed 3px red; }
-#button1{
-	position:absolute;
-	top:250px;
-	left:250px;
-	background-color:green;
-}
-#button2{
-	position:absolute;
-	top:250px;
-	left:350px;
-	background-color:red;
-	
-}
-#clockInBox{
-	
-	font-family:arial;color:green;
-	float:left;
-	padding:20px;
-	border:5px solid red;
-}
-#employeeList{
-	width:200px;
-	position:absolute;
-	font-weight:bold;
-	font-family:arial;color:green;
-	padding:20px;
-	top:175px;
-	left:800px;
-	border:2px solid red;
-	}
+	<style type="text/css">
 
-</style>
+		body{background-color:#7ea3ccff;}
+		h2{text-align:center; font-size:60px;color:green; border:dashed 3px red; }
+		#button1{
+			position:absolute;
+			top:250px;
+			left:250px;
+			background-color:green;
+		}
+		#button2{
+			position:absolute;
+			top:250px;
+			left:350px;
+			background-color:red;
 
-<script text="text/javascript">
-//This is the method that calculates the time in between clock-in and clock-out.
-var startTime, endTime;
+		}
+		#clockInBox{
 
-function clockIn() {
-  startTime = performance.now();
+			font-family:arial;color:green;
+			float:left;
+			padding:20px;
+			border:5px solid red;
+		}
+		#employeeList{
+			width:200px;
+			position:absolute;
+			font-weight:bold;
+			font-family:arial;color:green;
+			padding:20px;
+			top:175px;
+			left:800px;
+			border:2px solid red;
+		}
 
-};
-function clockOut() {
-  endTime = performance.now();
-	var timeDiff = endTime - startTime; //in ms 
-	// strip the ms 
-	timeDiff /= 1000; 
-	// 	get seconds 
-	var seconds = Math.round(timeDiff);
-		if (seconds < 60){
-		document.write(" You have been clocked in for "+ seconds + " seconds.");
-  	}
-		else {
-	//get minutes
-	var minutes = Math.round(timeDiff/60);
-	document.write(" You have been clocked in for "+ minutes +" minutes.");
-	}
-	
-}
+	</style>
+
+	<script text="text/javascript">
+		//This is the method that calculates the time in between clock-in and clock-out
+
+		function clockOut() {
+			var username = document.getElementById("username").value;
+			var password = document.getElementById("password").value;
+
+			if ( username == "Ian" && password == "1234" ||  username == "John" && password == "5678" || username == "Omar" && password == "4321"|| username == "Tom" && password == "8765" ){
+				var d = new Date();
+				var n = d.getTime();
+				n = n - getCookie(username);
+				n = n/1000;
+				alert(username + " has been clocked in for " + n + " seconds");
+				return false;
+			}
+			else{
+				alert("Invalid Credentials")
+			}
+		}
 
 
-var attempt = 3; // Variable to count number of attempts.
-// Below function executes on click of Clock In button.
-function validate(){
-var username = document.getElementById("username").value;
-var password = document.getElementById("password").value;
+		var attempt = 3; // Variable to count number of attempts.
+		// Below function executes on click of Clock In button.
+		function validate(){
+			var d = new Date();
+			var n = d.getTime();
+			var username = document.getElementById("username").value;
+			var password = document.getElementById("password").value;
 
-if ( username == "Ian" && password == "1234" ||  username == "John" && password == "5678" || username == "Omar" && password == "4321"|| username == "Tom" && password == "8765" ){
-alert ("Clock-In Successful");
+			if ( username == "Ian" && password == "1234" ||  username == "John" && password == "5678" || username == "Omar" && password == "4321"|| username == "Tom" && password == "8765" ){
+				alert ("Clock-In Successful");
+				document.cookie=username + "=" + n + ";";
 //After the correct credentials are entered you are taken to the login screen.
-window.location = "tables.html"; 
-return false;
-}
-
-else{
-attempt --;//Decrements attempts.
-alert("Error!!!  You have "+attempt+" attempts left.");
-// Disables clock in/Clock out buttons after three wrong attempts.
-if( attempt == 0){
-document.getElementById("username").disabled = true;
-document.getElementById("password").disabled = true;
-document.getElementById("clockin").disabled = true;
-return false;
-}
-}
-}
-</script>
+				//window.location = "tables.html";
+				return false;
+			}
+			else{
+				// Disables clock in/Clock out buttons after three wrong attempts.
+				if(attempt >= 0){
+					alert("Error!!!  You have "+attempt+" attempts left.");
+					attempt --;//Decrements attempts.
+				}
+				else {
+					document.getElementById("username").disabled = true;
+					document.getElementById("password").disabled = true;
+					document.getElementById("clockin").disabled = true;
+				}
+			}
+		}
+		function getCookie(cname) {
+			var name = cname + "=";
+			var decodedCookie = decodeURIComponent(document.cookie);
+			var ca = decodedCookie.split(';');
+			for(var i = 0; i <ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length);
+				}
+			}
+			return "";
+		}
+	</script>
 </head>
 
 <body>
-	<title> Clock In/Out</title>
+<title> Clock In/Out</title>
 <h2>Clock-In Screen</h2>
 
-	<form id="clockInBox">
-		<label>User Name(First Name) :</label>
-		<input autofocus type="text" name="username" id="username"/>
-		<label>Password(4 Digits) :</label>
-		<input type="input" name="password" id="password"/>
-		<input type="button" value="Clock In" id="button1" onclick="clockIn();validate();"/>
-		<input type="button" id="button2" value="Clock Out" onclick='clockOut()'>
-	</form>
+<form id="clockInBox">
+	<label>User Name(First Name) :</label>
+	<input autofocus type="text" name="username" id="username"/>
+	<label>Password(4 Digits) :</label>
+	<input type="input" name="password" id="password"/>
+	<input type="button" value="Clock In" id="button1" onclick="validate();"/>
+	<input type="button" id="button2" value="Clock Out" onclick='clockOut()'>
+</form>
 
 <br>
 <br>
@@ -123,21 +135,21 @@ return false;
 <br>
 <br>
 <form id="employeeList">
-Approved Clock In Credentials:
-<br>
-<br>
-Username: Ian<br>
-Password: 1234<br>
-----------------------<br>
-Username: John<br>
-Password: 5678<br>
-----------------------<br>
-Username: Omar<br>
-Password: 4321<br>
-----------------------<br>
-Username: Tom<br>
-Password: 8765<br>
-----------------------<br>
+	Approved Clock In Credentials:
+	<br>
+	<br>
+	Username: Ian<br>
+	Password: 1234<br>
+	----------------------<br>
+	Username: John<br>
+	Password: 5678<br>
+	----------------------<br>
+	Username: Omar<br>
+	Password: 4321<br>
+	----------------------<br>
+	Username: Tom<br>
+	Password: 8765<br>
+	----------------------<br>
 
 </form>
 </body>
