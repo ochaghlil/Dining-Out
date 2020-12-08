@@ -1,190 +1,195 @@
+<?php
+include_once 'dbh.php';
+?>
+
+<!DOCTYPE html>
 <html>
 <head>
+	
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js" > </script>
 	<style type="text/css">
+		
+		
+		#OrderTable{position:absolute; top:90px; left:90px;border:3px solid black; background-color: white; }
+		/* CSS HEX colors
+		--firebrick: #b3001bff;
+		--eerie-black: #262626ff;
+		--lapis-lazuli: #255c99ff;
+		--iceberg: #7ea3ccff;
+		--tan: #ccad8fff;
+		--cotton-candy: #f4bfdbff;
+		--lavender-blush: #ffe9f3ff;
+		--green-sheen: #87baabff;
+		--lavender-gray: #cac4ceff;
+		*/
 		
 		body{background-color:#7ea3ccff;}
 		
-		#table{position:absolute; top:90px; left:90px;}
-		#sideButton{position:absolute; top:130px; left:600px;}
-		#mainButton{position:absolute; top:230px; left:600px;}
-		#dessertButton{position:absolute; top:330px; left:600px;}
-		#table2{position:absolute; top:110px; left:870px;}
-		#table3{position:absolute; top:110px; left:870px;}
-		#table4{position:absolute; top:110px; left:870px;}
+		#OrderTable{position:absolute; top:90px; left:90px;border:3px solid black;}
+		
+		#div2{height:200px;width:400px;overflow-y:auto;}
+		.myTable{position:absolute;top:90px;left:850px; height:50px;width:400px;overflow-y:scroll;border-bottom:2px solid black;}
+		tr{padding:5px; border-bottom:3px solid black ; font-size:25px;}
+		caption{font-size:30px;color:#262626ff;}	
+		
+		#mainButton{position:absolute; top:150px; left:600px;}
+		#sideButton{position:absolute; top:350px; left:600px;}
+		#dessertButton{position:absolute; top:550px; left:600px;}
+		
+		
+		.dish{position:relative; top:140px; left:870px; font-size:25px; border-bottom:1px solid black;}
+		.price{position:relative;  top:140px; left:1000px; font-size:25px;border-bottom:1px solid black;}
+		.addbtn{position:relative; top:140px; left:1100px; font-size:20px; padding:8.5px;}
+		.addbtn:hover{cursor:pointer;background-color:#A9A9A9;}
+		td{border-bottom:1px solid black;}
 
-		#mainTableDiv{
-			height:450px;
-			width:430px;
-			overflow-y:auto;
-		}
-	
-
-		.dish{position:relative; left:5px; font-size:25px;}
-		.price{position:relative;  left:150px; font-size:25px;}
-		.addbtn{position:relative; left:200px; font-size:20px; }
-
-		.headClass{position:absolute; top:60px; left:1050px;}
-		.menuClass{position:absolute; top:130px; left:870px;}
-		.sideClass{position:absolute; top:130px; left:870px;}
-		.desClass{position:absolute; top:130px; left:870px;}
-		.orderClass{position:absolute; top:130px; left:100px;}	
-		.Total{position:absolute; top:480px; left:110px;}
+		.nameplace{position:absolute; top:110px; left:260px;font-weight:bold;}
+		
+		.orderClass{position:absolute; top:160px; left:100px;}	
+		.Total{position:absolute; top:480px; left:110px;font-weight:bold;width:150px;}
 		.descriptiono{display:none;}
 	
 	
-		#receipt{position:absolute; top:50px; left:1150px; cursor:pointer;}
+		#receipt{position:absolute; top:50px; left:1150px; cursor:pointer; background-color:#dddb6a;}
 		.receipt {border-radius:55%; padding:10px; text-align:center;}
 	
-		#logout{position:absolute; top:630px; left:1130px; cursor:pointer;background-color:#b3001bff;}
-		.logout {width:140px;font-size:25px;}
+		#logout{position:absolute; top:650px; left:1160px; cursor:pointer;background-color:#da1212;}
+		.logout {width:140px;font-size:25px;border-radius:50px;}
 	
-		#clockOut{position:absolute; top:620px; left:870px; cursor:pointer;background-color:blue;}
-		.clockOut {width:100px;font-size:25px; }
+		#clockOut{position:absolute; top:650px; left:870px; cursor:pointer;background-color:#fd3a69;}
+		.clockOut {width:100px;font-size:20px;border-radius:50px; }
 	
-		#addEmployee{position:absolute; top:40px; left:130px; cursor:pointer;background-color:orange;}
-		.addEmployee {width:110px;font-size:15px;}
+		#addEmployee{position:absolute; top:30px; left:90px; cursor:pointer;background-color:#dddb6a;}
+		.addEmployee {width:110px;font-size:15px;border-radius:50px;}
 	
-		#changeTable{position:absolute; top:620px; left:90px; cursor:pointer;background-color:brown;}
-		.changeTable {width:80px;font-size:15px;}
+		#changeTable{position:absolute; top:640px; left:90px; cursor:pointer;background-color:#da1212;}
+		.changeTable {width:80px;font-size:15px;border-radius:50px;}
 	
-	
-		.button {background-color:green; padding:20px; cursor:pointer;}
-		.foodButton {border:4px solid black;background-color:orange;  padding:20px; cursor:pointer;}
+		.button {padding:16px 32px;cursor:pointer;border-radius:10px;transition-duration: 0.5s;font-size: 16px;font-weight:bold;outline:none;}
+		
+		.button1 {background-color: white; color: black; border: 2px solid #0e49b5;
+		}
+
+		.button1:hover {background-color:#0e49b5; color: white; }
+		.button2 {background-color: white; color: black; border: 2px solid #54e346;}
+
+		.button2:hover {background-color: #54e346; color: white;}
+		
+		.button3 {background-color: white; color: black; border: 2px solid #cc0e74;}
+
+		.button3:hover {background-color: #cc0e74; color: white;}
+		
+		.foodButton {border:4px solid black;background-color:orange;padding:20px; cursor:pointer;}
 	
 		.button1 {width:150px;}
 		.button2 {width:150px;}
 		.button3 {width:150px;}
 	
-		#edit{position:absolute; top:590px; left:1030px; cursor:pointer;background-color:white;}
+		#edit{position:absolute; top:606px; left:1015px; cursor:pointer;background-color:#dddb6a;}
 		.edit{border-radius:90%; padding:10px; text-align:center;}
-	
-		#bigWrapper{border:1px solid red; width:1300px; margin:20px auto;  }
-				
-		table{border:5px solid black;}
-	
+						
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<style>
 		* {box-sizing: border-box;}
 
 		body {font: 16px Arial; }
 
-		/*the container must be positioned relative:*/
-		.autocomplete {
-			position: relative;
-			display: inline-block;
-		}
-
-		input {
-			border: 1px solid transparent;
-			background-color: #FF4E4E;
-			padding: 10px;
-			font-size: 16px;
-		}
-
-		input[type=text] {
-			background-color: #8FC8FF;
-			width: 100%;
-		}
-
-		input[type=Add] {
-			background-color: DodgerBlue;
-			color: #fff;
-			cursor: pointer;
-		}
-
-		.autocomplete-items {
-			position: absolute;
-			border: 1px solid #d4d4d4;
-			border-bottom: none;
-			border-top: none;
-			z-index: 99;
-			/*position the autocomplete items to be the same width as the container:*/
-			top: 100%;
-			left: 0;
-			right: 0;
-		}
-
-		.autocomplete-items div {
-			padding: 10px;
-			cursor: pointer;
-			background-color: #fff; 
-			border-bottom: 1px solid #d4d4d4; 
-		}
-
-		/*when hovering an item:*/
-		.autocomplete-items div:hover {
-			background-color: #e9e9e9; 
-		}
-
-		/*when navigating through the items using the arrow keys:*/
-		.autocomplete-active {
-			background-color: DodgerBlue !important; 
-			color: #54ABFF 
-		}
-		#search{position:absolute; top:15px; left:630px;}
-		#searchDiv{position:absolute; top:70px; left:510px;}
-		#searchAdd{position:absolute; top:70px; left:820px;}
+		#search{position:absolute; top:30px; left:595px;}
 	
+		.searchTerm {
+		  width: 65%;
+		  border: 3px solid #6EA5F9;
+		  border-right: 3px solid #6EA5F9;
+		  padding: 5px;
+		  height: 20px;
+		  border-radius: 5px 5px 5px 5px;
+		  outline: none;
+		  color: #9DBFAF;
+		}
+
+		.searchButton1 {
+		  width: 80px;
+		  height: 45px;
+		  border: 1px solid #6EA5F9;
+		  background: #6EA5F9;
+		  text-align: center;
+		  color: #fff;
+		  border-radius: 5px 5px 5px 5px;
+		  cursor: pointer;
+		  font-size: 20px;
+		}
+		
+
+
 		</style>
 	
-		<title>Main Page</title>
+		<title>Dining-Out</title>
 		<script src="cart.js" asynch></script>	<!-- the javascript  -->
 	</head>
 	
 	<body id="bigWrapper">	
 	
 		<!--table to see the order-->
-		<table  style="width:400px; height:500px" id="table" >
-			<caption>YOUR ORDER</caption>
+		<table  style="width:400px; height:500px" id="OrderTable" >
+			<caption>YOUR ORDER FOR</caption>
 			<tr> </tr>
 		
 		</table>
 	
-		<!--buttons to see the dishes-->
-		<button id="sideButton" class="button button1" onclick="sideD()" > SIDE DISHES </button>
-		<button id="mainButton" class="button button2" onclick="mainD()"> MAIN DISHES </button>
-		<button id="dessertButton" class="button button3" onclick="desD()"> DESSERT</button>
-		<p id="demo"></p>
 	
 
-		<h2 id="search">Search</h2>
+		<!--search: -->	
+		<?php
+			
+		$output = NULL;
+	
+		if(isset($_POST['submit'])) {
+		
+			$search = $conn-> real_escape_string($_POST['search']);
+		
+			//query the database:
+			$resultSet = $conn->query("SELECT * FROM Food_Item WHERE Food_Name LIKE '%$search%' ORDER BY Category_ID;");
+		
+		
+			if($resultSet->num_rows > 0){
+				while ($row = $resultSet->fetch_assoc()) 
+				{
+				
+					$name = $row['Food_Name'];
+					$price = $row['Food_Price'];
+				
+					$output .= "$name  Price: $$price <br>";
+				}
+			}
+			else {
+				$output = "No Results.";
+			}
+		}		
+		?>
+	
+		<form method="POST" id="search">
+			<input type="TEXT" name="search" placeholder="Food Name" class ="searchTerm"/>
+			<input type="SUBMIT" name="submit" value="Search" class="searchButton1"/>
+		
+			<?echo $output;?>
+		</form>			
 
-		<!--Make sure the form has the autocomplete function switched off:-->
-		<form autocomplete="off" action="/action_page.php">
-			<div id="searchDiv" class="autocomplete" style="width:300px;">
-				<input id="myInput" type="text" name="myCountry" placeholder="Enter Item">
-			</div>
-			<input id="searchAdd" type="submit" >
-		</form>
-	
-	
-	
-		<!--table to see the menu. It'll change according to the dish-->
-		<table style="width:400px; height:500px" id="table3">
-		</table>
-	
-	
-		<table style="width:400px; height:500px" id="table2">
-	
-		</table>
-		<table style="width:400px; height:500px" id="table4">
-		</table>
 	
 		<button id="receipt" class="receipt receipt" onclick="printsend()"> PAY OPTIONS</button>
 	
-		<form action="logIn.html">
+		<form action="logIn.php">
 			<button id="logout"  class="logout logout"> LOG OUT</button>
 		</form>
 	
-		<form action="ClockIn.html">
+		<form action="ClockIn.php">
 			<button id="clockOut"  class="clockOut"> CLOCK OUT</button>
 		</form>
 	
-		<form action="editMenu.html">
+		<form action="editMenu.php">
 			<button id="edit" class="edit">EDIT MENU</button>
 		</form>
 	
-		<form action="search.html">
+		<form action="editEmployee.php">
 			<button id="addEmployee" class="addEmployee">EDIT EMPLOYEES</button>
 		</form>
 	
@@ -192,115 +197,154 @@
 			<button id="changeTable" class="changeTable">Change Table</button>
 		</form>
 	
-		<!--stuff Ian did-->
-		<h2 class="headClass" id="menuH"> MENU</h2>		<!-- These are all for test purposes, structure must stay same but neds to be replaced to read from database-->
-		<section class="menuClass" id="menuC" >
-			<div id="mainTableDiv">
-				<div class="item">
-					<span class="dish">Burger</span>
-					<span class="price">6.99</span>
-					<span class="type main" ></span>
-					<button class="addbtn" type="button">ADD</button>
+
+		<h2 class="nameplace"></h2><!-- These are all for test purposes, structure must stay same but neds to be replaced to read from database-->
+		<section class="menuClass" id="menuC">
+			<div id="mainTableDiv" class="mainTableDiv"> </div>
+			<div id="sideTableDiv" class="sideTableDiv"> </div>
+			<div id="desTableDiv"  class="desTableDiv"> </div>
+
+			<section class="orderClass" id="orderC">        <!-- where the order is stored -->
+				<div class="ordered">
 				</div>
-		
+				<div class="Total">
+					<span class="totalc">$0.00</span>        <!-- Where the total is stored -->
+				</div>
 			</section>
-			<section class="sideClass" id="sideC" >
-				<div id="mainTableDiv">
-					<div class="item">
-						<span class="dish">Fries</span>
-						<span class="price">3.99</span>
-						<span class="type main" ></span>
-						<button class="addbtn" type="button">ADD</button>
-					</div>
-	
-					<div class="item">
-						<span class="dish">Nachos</span>
-						<span class="price">5.99</span>
-						<span class="type main" ></span>
-						<button class="addbtn" type="button">ADD</button>
-					</div>
-				</section>
-				<section class="desClass" id="desC" >
-					<div id="mainTableDiv">
-						<div class="item">
-							<span class="dish">Ice Cream</span>
-							<span class="price">4.99</span>
-							<span class="type main" ></span>
-							<button class="addbtn" type="button">ADD</button>
-						</div>
-	
-						<div class="item">
-							<span class="dish">Doughnut</span>
-							<span class="price">0.99</span>
-							<span class="type main" ></span>
-							<button class="addbtn" type="button">ADD</button>
-						</div>
-					</section>
-					<section class="orderClass" id="orderC">		<!-- where the order is stored -->
-						<div class="ordered">
-						</div>
-						<div class="Total">
-							<span class="totalc">$0.00</span>		<!-- Where the total is stored -->
-						</div>
-					</section>
-					<script>
-						function test(){
-							alert("e");
-						}
-						var t1 = document.getElementById("table2")
-						var t2 = document.getElementById("table3")
-						var t3 = document.getElementById("table4")
-
-
-						var mainC = document.getElementById("menuC")
-						var sideC = document.getElementById("sideC")
-						var desC = document.getElementById("desC")
-						var menC = document.getElementById("menuH")
-
-						menC.style.display = "block"
-						t2.style.display = "block"
-						t1.style.display = "none"
-						t3.style.display = "none"
-						function mainD(){				//Display the menus by section
-							mainC.style.display = "block"
-							sideC.style.display = "none"
-							desC.style.display = "none"
-							menC.style.display = "block"
-						}
-						function sideD(){				//ditto
-							mainC.style.display = "none"
-							sideC.style.display = "block"
-							desC.style.display = "none"
-							menC.style.display = "block"
-						}
-						function desD(){				//ditto
-							mainC.style.display = "none"
-							desC.style.display = "block"
-							sideC.style.display = "none"
-							menC.style.display = "block"
-						}
-						mainD();	//to load an inital menu
 		
+		<table class="myTable">
+			<tr>
+				<th>Name </th>
+				<th>Price</th>
+			</tr>	
+				<tbody id="myTable">
+															
+				</tbody>
+			</table>
 		
-						function getCookie(cname) {
-							var name = cname + "=";
-							var decodedCookie = decodeURIComponent(document.cookie);
-							var ca = decodedCookie.split(';');
-							for(var i = 0; i <ca.length; i++) {
-								var c = ca[i];
-								while (c.charAt(0) == ' ') {
-									c = c.substring(1);
-								}
-								if (c.indexOf(name) == 0) {
-									return c.substring(name.length, c.length);
-								}
-							}
-							return "";
+			<script>
+							
+				jQuery.ajax({
+					url: 'function.php',
+					type: 'POST',
+					data: { "readdb": ""},
+					success: function(response) { add3(response);}
+				});
+				function add3(menu){
+					var names = menu.split("-")[0]
+					names = names.split("+")
+					var prices = menu.split("-")[1]
+					prices = prices.split("+")
+					var cat = menu.split("-")[2]
+					cat = cat.split("+")
+					for(var i = 0; i < cat.length; i++)
+					{
+						if (cat[i] === "7"){
+							addmain(names[i],prices[i], "$")
 						}
-						document.getElementsByClassName("nameplace")[0].innerText = getCookie("tablenum")
-						</script>		
-	
-	
-	</body>
+						 
+						else if (cat[i] === "8"){
+							addside(names[i],prices[i])
+						}
+						
+						else if (cat[i] === "9"){
+							adddes(names[i],prices[i])
+						}				
+					}
+				}
+				function addmain(dish, price) {
+					var toadd = document.createElement('div')
+					var ordered = document.getElementsByClassName('mainTableDiv')[0]
+					var content = `
+					<div class="item">
+					 <span class="dish">${dish}</span> 				 
+					 <span class="price">${price}</span> 	
+					 <button class="addbtn" type="button">Add</button> 						
+					</div>
+					`
+					toadd.innerHTML = content
+					ordered.append(toadd)
+					ready()
+				}
+				function addside(dish, price) {
+					var toadd = document.createElement('div')
+					var ordered = document.getElementsByClassName('sideTableDiv')[0]
+					var content = `
+					<div class="item">
+					<span class="dish">${dish}</span>
+					<span class="price">${price}</span>
+					<span class="type side" ></span>
+					<button class="addbtn" type="button">Add</button>
+					</div> `
+					toadd.innerHTML = content
+					ordered.append(toadd)
+					ready()
+				}
+				function adddes(dish, price) {
+					var toadd = document.createElement('div')
+					var ordered = document.getElementsByClassName('desTableDiv')[0]
+					var content = `
+					<div class="item">
+					<span class="dish">${dish}</span>
+					<span class="price">${price}</span>
+					<span class="type des" ></span>
+					<button class="addbtn" type="button">Add</button>
+					</div> `
+					toadd.innerHTML = content
+					ordered.append(toadd)
+					ready()
+				}
+				var mainC = document.getElementsByClassName('mainTableDiv')[0]
+                        var sideC = document.getElementsByClassName('sideTableDiv')[0]
+                        var desC = document.getElementsByClassName('desTableDiv')[0]
 
-</html>
+                        function mainD(){                //Display the menus by section
+                            mainC.style.display = "block"
+                            sideC.style.display = "none"
+                            desC.style.display = "none"
+                        }
+                        function sideD(){    
+                            mainC.style.display = "none"
+                            sideC.style.display = "block"
+                            desC.style.display = "none"
+                        }
+                        function desD(){  
+                            mainC.style.display = "none"
+                            desC.style.display = "block"
+                            sideC.style.display = "none"
+                        }
+                        mainD();    //to load an inital menu			
+						
+					buildTable(mainTableDiv)	
+
+					function buildTable(data){
+							var table = document.getElementByClassName('myTable')
+						
+						for (var i=0; i< data.length; i++){
+							var row = ` <tr>
+											<td>${data[i].name}</td>
+											<td>${data[i].price}</td>
+										</tr>`
+							table.innerHTML += row
+							
+						}
+					}
+
+				</script>		
+
+						<div>
+							<button onClick="mainD()" name="main" class="button button2" id="mainButton"> Main </button>
+						</div>
+						<div>
+							<button onClick="sideD()" name="side" class="button button1" id="sideButton"> Side </button>
+						</div>
+						<div>
+							<button onClick="desD()" name="dessert" class="button button3" id="dessertButton"> Dessert </button>
+						</div>
+
+				
+	
+			</body>
+
+			</html>
+
