@@ -17,8 +17,38 @@
 	.button3{width:150px; position:absolute; top:150px; left:500px;}
 	.button4{width:150px; position:absolute; top:150px; left:700px;}
 	.button{background-color:#61EF50; padding:10px; cursor:pointer; border-radius:20px;}
-	.paymentlist{position:absolute; top:220px; left:350px; font-size:25px;}
+	
+	.makePayment{padding:8px;cursor:pointer;font-weight:bold;spacing:10px;}
+	.makePayment:hover{background:#A9A9A9;}
+	
+	.paymentlist{position:absolute; top:220px; left:500px; font-size:25px;}
 	.amt{display:none;}
+		
+	.custom-field {
+	  position: relative;
+	  font-size: 14px;
+	  padding-top: 20px;
+	  margin-bottom: 5px;
+	}
+
+	.custom-field input {
+	
+	  background: #f2f2f2;
+	  padding: 12px;
+	  border-radius: 3px;
+	  width: 250px;
+	  outline: none;
+	  font-size: 14px;
+	}
+	
+	input[type=text]:focus {
+	  border: 5px solid #555;
+	  transition: 0.5s;
+	}
+	::-webkit-input-placeholder { 
+	  color: gray;
+	  font-size:25px;
+	}
 	</style>
 </head>
 <body>
@@ -51,30 +81,33 @@
 
 
 	<div class="e">
+		<label class="custom-field three">
 		<div class="creditcard card" id="creditcard">
-			Card Number: <input type="text" name="ccnum" id ="ccnum" maxlength="12" size="10">
-			Exp Date: <input type="text" name="expd1" id ="expd1" maxlength="2" size="1">
-			/ <input type="text" name="expd2" id ="expd2" maxlength="2" size="1">
-			Payment Amount: <input type="text" name="ccpaymentamt" id ="ccpaymentamt" size="6">
-			<button id="ccpay" onclick="makeccPayment();">Make Payment </button>
+			Card Number: <input type="text" name="ccnum" id ="ccnum" maxlength="14" size="10" placeholder="**** **** *****">
+	
+			Exp Date: <input type="text" name="expd1" id ="expd1" maxlength="7" size="1" placeholder="** / **">
+
+			Payment Amount: <input type="text" name="ccpaymentamt" id ="ccpaymentamt" size="6" >
+			<button id="ccpay" class="makePayment" onclick="makeccPayment();">Make Payment </button>
 		</div>
 		<div class="giftcard card" id="giftcard">
-			Card Number: <input type="text" name="gcnum" id ="gcnum" maxlength="12" size="10">
-			Security Number: <input type="text" name="sec" id ="sec" maxlength="4" size="1">
+			Card Number: <input type="text" name="gcnum" id ="gcnum" maxlength="12" size="10" placeholder="**** **** *****">
+			Security Number: <input type="text" name="sec" id ="sec" maxlength="4" size="1"placeholder="****">
 			Payment Amount: <input type="text" name="gcpaymentamt" id ="gcpaymentamt" size="6">
-			<button id="gcpay" onclick="makegcPayment();">Make Payment </button>
+			<button id="gcpay" class="makePayment" onclick="makegcPayment();">Make Payment </button>
 		</div>
 		<div class="cash card" id="cash">
 			Payment Amount: <input type="text" name="cshpaymentamt" id ="cshpaymentamt" size="6">
-			<button id="cshpay" onclick="makecshPayment();">Make Payment </button>
+			<button id="cshpay" class="makePayment" onclick="makecshPayment();">Make Payment </button>
 		</div>
 		<div class="check card" id="check">
-			Routing Number: <input type="text" name="chknum" id ="chknum" maxlength="9" size="7">
-			Account #: <input type="text" name="acn" id ="acn" maxlength="12" size="10">
-			Check Number: <input type="text" name="cn" id ="cn" maxlength="3" size="1">
+			Routing Number: <input type="text" name="chknum" id ="chknum" maxlength="11" size="7" placeholder="*** *** ***">
+			Account #: <input type="text" name="acn" id ="acn" maxlength="14" size="10" placeholder="**** **** *****">
+			Check Number: <input type="text" name="cn" id ="cn" maxlength="3" size="1"placeholder="*">
 			Payment Amount: <input type="text" name="chkpaymentamt" id ="chkpaymentamt" size="6">
-			<button id="chapay" onclick="makechkPayment();">Make Payment </button>
+			<button id="chapay" class="makePayment" onclick="makechkPayment();">Make Payment </button>
 		</div>
+	</label>
 	</div>
 
 
@@ -83,167 +116,166 @@
 
 
 
-	<form action="interface.html">
-		<button id="logout"  class="logout logout"> BACK</button>
+	<form action="interface.php">
+		<button id="logout"  class="logout logout"> DONE</button>
 	</form>
 	
 	<script>
 	
-	var gc1num = 123456789012
-	var gc1amt = 50.00
+		var gc1num = 123456789012
+		var gc1amt = 150.00
 	
 	
-	function rdy(){
-		ccards.style.display = "none"
-		gcards.style.display = "none"
-		cshcards.style.display = "none"
-		chkcards.style.display = "none"
-		document.getElementsByClassName("remainc")[0].innerText = subtotal
-		document.getElementById("ccpaymentamt").value = subtotal
-		document.getElementById("gcpaymentamt").value = subtotal
-		document.getElementById("cshpaymentamt").value = subtotal
-		document.getElementById("chkpaymentamt").value = subtotal
-		document.getElementById("ccnum").value = ""
-		document.getElementById("gcnum").value = ""
-		document.getElementById("chknum").value = ""
-		document.getElementById("expd1").value = ""
-		document.getElementById("expd2").value = ""
-		document.getElementById("sec").value = ""
-		document.getElementById("acn").value = ""
-		document.getElementById("cn").value = ""
-		var removeButtons = document.getElementsByClassName('removeButton')
-		for (var i = 0; i < removeButtons.length; i++) {
-				var button = removeButtons[i]
-				button.addEventListener('click', remove)		//ditto
-		}
-	}
-	
-	
-	
-	
-	function getCookie(cname) {
-		var name = cname + "=";
-		var decodedCookie = decodeURIComponent(document.cookie);
-		var ca = decodedCookie.split(';');
-		for(var i = 0; i <ca.length; i++) {
-			var c = ca[i];
-			while (c.charAt(0) == ' ') {
-				c = c.substring(1);
-			}
-			if (c.indexOf(name) == 0) {
-				return c.substring(name.length, c.length);
+		function rdy(){
+			ccards.style.display = "none"
+			gcards.style.display = "none"
+			cshcards.style.display = "none"
+			chkcards.style.display = "none"
+			document.getElementsByClassName("remainc")[0].innerText = subtotal
+			document.getElementById("ccpaymentamt").value = subtotal
+			document.getElementById("gcpaymentamt").value = subtotal
+			document.getElementById("cshpaymentamt").value = subtotal
+			document.getElementById("chkpaymentamt").value = subtotal
+			document.getElementById("ccnum").value = ""
+			document.getElementById("gcnum").value = ""
+			document.getElementById("chknum").value = ""
+			document.getElementById("expd1").value = ""
+			document.getElementById("sec").value = ""
+			document.getElementById("acn").value = ""
+			document.getElementById("cn").value = ""
+			var removeButtons = document.getElementsByClassName('removeButton')
+			for (var i = 0; i < removeButtons.length; i++) {
+					var button = removeButtons[i]
+					button.addEventListener('click', remove)		//ditto
 			}
 		}
-		return "";
-	}
-	var subtotal = parseFloat(getCookie("subtotal")).toFixed(2)
-	document.getElementsByClassName("totalc")[0].innerText = subtotal
+	
+	
+	
+	
+		function getCookie(cname) {
+			var name = cname + "=";
+			var decodedCookie = decodeURIComponent(document.cookie);
+			var ca = decodedCookie.split(';');
+			for(var i = 0; i <ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length);
+				}
+			}
+			return "";
+		}
+		var subtotal = parseFloat(getCookie("subtotal")).toFixed(2)
+		document.getElementsByClassName("totalc")[0].innerText = subtotal
 
 	
 	
-	var ccards = document.getElementsByClassName("creditcard")[0]
-	var gcards = document.getElementsByClassName("giftcard")[0]
-	var cshcards = document.getElementsByClassName("cash")[0]
-	var chkcards = document.getElementsByClassName("check")[0]
-	function scc(){
-		ccards.style.display = "block"
-		gcards.style.display = "none"
-		cshcards.style.display = "none"
-		chkcards.style.display = "none"
-	}
-	function sgc(){
-		ccards.style.display = "none"
-		gcards.style.display = "block"
-		cshcards.style.display = "none"
-		chkcards.style.display = "none"
-	}
-	function sca(){
-		ccards.style.display = "none"
-		gcards.style.display = "none"
-		cshcards.style.display = "block"
-		chkcards.style.display = "none"
-	}
-	function sch(){
-		ccards.style.display = "none"
-		gcards.style.display = "none"
-		cshcards.style.display = "none"
-		chkcards.style.display = "block"
-	}
+		var ccards = document.getElementsByClassName("creditcard")[0]
+		var gcards = document.getElementsByClassName("giftcard")[0]
+		var cshcards = document.getElementsByClassName("cash")[0]
+		var chkcards = document.getElementsByClassName("check")[0]
+		function scc(){
+			ccards.style.display = "block"
+			gcards.style.display = "none"
+			cshcards.style.display = "none"
+			chkcards.style.display = "none"
+		}
+		function sgc(){
+			ccards.style.display = "none"
+			gcards.style.display = "block"
+			cshcards.style.display = "none"
+			chkcards.style.display = "none"
+		}
+		function sca(){
+			ccards.style.display = "none"
+			gcards.style.display = "none"
+			cshcards.style.display = "block"
+			chkcards.style.display = "none"
+		}
+		function sch(){
+			ccards.style.display = "none"
+			gcards.style.display = "none"
+			cshcards.style.display = "none"
+			chkcards.style.display = "block"
+		}
 	
-	function makeccPayment(){
-		var toadd = document.createElement('div')
-		var list = document.getElementsByClassName('paymentlist')[0]
-		var content =`				
-		<div>
-			<span>Charged $${document.getElementById("ccpaymentamt").value} via credit card from card ending in ${document.getElementById("ccnum").value.substr(8)}</span>
-			<span class="amt">${document.getElementById("ccpaymentamt").value}</span>
-			<button class="removeButton" type="button">Remove Payment</button>
-		</div>`
-		toadd.innerHTML = content 
-		list.append(toadd)
-		subtotal = (subtotal - document.getElementById("ccpaymentamt").value).toFixed(2)
-		rdy()
-	}
-	function makegcPayment(){
-		if(document.getElementById("gcnum").value == gc1num && document.getElementById("gcpaymentamt").value <= gc1amt){
+		function makeccPayment(){
 			var toadd = document.createElement('div')
 			var list = document.getElementsByClassName('paymentlist')[0]
 			var content =`				
 			<div>
-				<span>Charged $${document.getElementById("gcpaymentamt").value} via gift card. Gift card has $${parseFloat(gc1amt) - document.getElementById("gcpaymentamt").value} left</span>
-				<span class="amt">${document.getElementById("gcpaymentamt").value}</span>
+				<span>Charged $${document.getElementById("ccpaymentamt").value} via credit card from card ending in ${document.getElementById("ccnum").value.substr(8)}</span>
+				<span class="amt">${document.getElementById("ccpaymentamt").value}</span>
 				<button class="removeButton" type="button">Remove Payment</button>
 			</div>`
 			toadd.innerHTML = content 
 			list.append(toadd)
-			subtotal = (subtotal - document.getElementById("gcpaymentamt").value).toFixed(2)
-			gc1amt = gc1amt - document.getElementById("gcpaymentamt").value
+			subtotal = (subtotal - document.getElementById("ccpaymentamt").value).toFixed(2)
 			rdy()
 		}
-		else{
-			alert("Invalid Gift Card")
+		function makegcPayment(){
+			if(document.getElementById("gcnum").value == gc1num && document.getElementById("gcpaymentamt").value <= gc1amt){
+				var toadd = document.createElement('div')
+				var list = document.getElementsByClassName('paymentlist')[0]
+				var content =`				
+				<div>
+					<span>Charged $${document.getElementById("gcpaymentamt").value} via gift card. Gift card has $${parseFloat(gc1amt) - document.getElementById("gcpaymentamt").value} left</span>
+					<span class="amt">${document.getElementById("gcpaymentamt").value}</span>
+					<button class="removeButton" type="button">Remove Payment</button>
+				</div>`
+				toadd.innerHTML = content 
+				list.append(toadd)
+				subtotal = (subtotal - document.getElementById("gcpaymentamt").value).toFixed(2)
+				gc1amt = gc1amt - document.getElementById("gcpaymentamt").value
+				rdy()
+			}
+			else{
+				alert("Invalid Gift Card")
+			}
 		}
-	}
-	function makecshPayment(){
-		var toadd = document.createElement('div')
-		var list = document.getElementsByClassName('paymentlist')[0]
-		var content =`				
-		<div>
-			<span>Charged $${document.getElementById("cshpaymentamt").value} via cash</span>
-			<span class="amt">${document.getElementById("cshpaymentamt").value}</span>
-			<button class="removeButton" type="button">Remove Payment</button>
-		</div>`
-		toadd.innerHTML = content 
-		list.append(toadd)
-		subtotal = (subtotal - document.getElementById("cshpaymentamt").value).toFixed(2)
-		rdy()
-	}
-	function makechkPayment(){
-		var toadd = document.createElement('div')
-		var list = document.getElementsByClassName('paymentlist')[0]
-		var content =`				
-		<div>
-			<span>Charged $${document.getElementById("chkpaymentamt").value} via check from account ending in ${document.getElementById("chknum").value.substr(7)}</span>
-			<span class="amt">${document.getElementById("chkpaymentamt").value}</span>
-			<button class="removeButton" type="button">Remove Payment</button>
-		</div>`
-		toadd.innerHTML = content 
-		list.append(toadd)
-		subtotal = (subtotal - document.getElementById("chkpaymentamt").value).toFixed(2)
-		rdy()
-	}
-	function remove(event){
-		var button = event.target
-		var item = button.parentElement			//same as remove except it needed a loop to keep track of the total change
-		document.getElementsByClassName("remainc")[0].innerText = parseFloat(subtotal) + parseFloat(item.getElementsByClassName("amt")[0].innerText)
-		subtotal = document.getElementsByClassName("remainc")[0].innerText
-		button.parentElement.remove()
-		rdy()
-	}
+		function makecshPayment(){
+			var toadd = document.createElement('div')
+			var list = document.getElementsByClassName('paymentlist')[0]
+			var content =`				
+			<div>
+				<span>Charged $${document.getElementById("cshpaymentamt").value} via cash</span>
+				<span class="amt">${document.getElementById("cshpaymentamt").value}</span>
+				<button class="removeButton" type="button">Remove Payment</button>
+			</div>`
+			toadd.innerHTML = content 
+			list.append(toadd)
+			subtotal = (subtotal - document.getElementById("cshpaymentamt").value).toFixed(2)
+			rdy()
+		}
+		function makechkPayment(){
+			var toadd = document.createElement('div')
+			var list = document.getElementsByClassName('paymentlist')[0]
+			var content =`				
+			<div>
+				<span>Charged $${document.getElementById("chkpaymentamt").value} via check from account ending in ${document.getElementById("chknum").value.substr(7)}</span>
+				<span class="amt">${document.getElementById("chkpaymentamt").value}</span>
+				<button class="removeButton" type="button">Remove Payment</button>
+			</div>`
+			toadd.innerHTML = content 
+			list.append(toadd)
+			subtotal = (subtotal - document.getElementById("chkpaymentamt").value).toFixed(2)
+			rdy()
+		}
+		function remove(event){
+			var button = event.target
+			var item = button.parentElement			//same as remove except it needed a loop to keep track of the total change
+			document.getElementsByClassName("remainc")[0].innerText = parseFloat(subtotal) + parseFloat(item.getElementsByClassName("amt")[0].innerText)
+			subtotal = document.getElementsByClassName("remainc")[0].innerText
+			button.parentElement.remove()
+			rdy()
+		}
 	
 	
-	rdy()
+		rdy()
 	
-	</script>
+		</script>
 </body>
 </html>
