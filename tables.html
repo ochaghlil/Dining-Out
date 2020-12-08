@@ -4,16 +4,28 @@
 		
 			body{background-color:#7ea3ccff;}
 			
-			#table1{position:absolute; top:100px; left:220px;}
-			#table2{position:absolute; top:100px; left:920px;}
-			#table3{position:absolute; top:250px; left:570px; }
-			#table4{position:absolute; top:400px; left:220px;}
-			#table5{position:absolute; top:400px; left:920px;}
+			#Table1{position:absolute; top:100px; left:220px;outline:none;border:none;}
+			#Table1:hover{background-image:url('view1.jpg'); background-repeat: no-repeat;
+			  background-size: 100% 100%;}
+			#Table2{position:absolute; top:100px; left:920px;outline:none;border:none;}
+			#Table2:hover{background-image:url('view2.jpg'); background-repeat: no-repeat;
+			  background-size: 100% 100%;}
+			#Table3{position:absolute; top:250px; left:570px;outline:none;border:none;}
+			#Table3:hover{background-image:url('view3.jpg'); background-repeat: no-repeat;
+			  background-size: 100% 100%;}
+			#Table4{position:absolute; top:400px; left:220px;outline:none;border:none;}
+			#Table4:hover{background-image:url('view4.jpg'); background-repeat: no-repeat;
+			  background-size: 100% 100%;}
+			#Table5{position:absolute; top:400px; left:920px;outline:none;border:none;}
+			#Table5:hover{background-image:url('view5.jpg'); background-repeat: no-repeat;
+			  background-size: 100% 100%;}
 			#t{position:absolute; top:400px;left:535px;}			
 			
-			.free {font-size:70px;background-color:green; padding:10px; border-radius:20px; box-shadow:0 10px gray;}
+
+									
+			.free {font-size:70px;background-color:green; padding:15px; border-radius:20px; box-shadow:0 10px gray;}
 			.free:hover{cursor:pointer; background-color:#3e8e41;}
-			.free:active{background-color:#3e8e41; box-shadow:0 6px #666; transform:translateY(4px);}
+			.free:active{background-color:#3e8e41; box-shadow:0 6px #666; transform:translateY(8px);}
 			
 			.ocupied {font-size:70px;background-color:red; padding:10px; border-radius:20px; box-shadow:0 10px gray;}
 			.ocupied:hover{cursor:pointer; background-color:#FE4444;}
@@ -29,27 +41,20 @@
 </head>
 <body>
 	<canvas id="t" width="360" height="360"></canvas>
-	<button id="table1" class="free" onclick="addclick()"> TABLE 1 </button>
-	<button id="table2" class="free" onclick="addclick()"> TABLE 2 </button>
-	<button id="table3" class="free" onclick="addclick()"> TABLE 3 </button>
-	<button id="table4" class="free" onclick="addclick()"> TABLE 4 </button>
-	<button id="table5" class="free" onclick="addclick()"> TABLE 5 </button>
+	<button id="Table1" class="free" onclick="addclick()"> TABLE 1 </button>
+	<button id="Table2" class="free" onclick="addclick()"> TABLE 2 </button>
+	<button id="Table3" class="free" onclick="addclick()"> TABLE 3 </button>
+	<button id="Table4" class="free" onclick="addclick()"> TABLE 4 </button>
+	<button id="Table5" class="free" onclick="addclick()"> TABLE 5 </button>
 	
 	</form>
 	
-	
-	
-	
-	<form action="login.html">
-		<button id="logout"  class="logout logout"> BACK</button>
+	<form action="logIn.php">
+		<button id="logout"  class="logout logout"> LOG OUT</button>
 	</form>
-	
-	
-	
 	
 	
 	<script>																														
-
 			//game
 			window.onload=function() {
 				canv=document.getElementById("t");
@@ -119,32 +124,32 @@
 			}
 	
 
-	if(getCookie("table1") == "1"){
-		var x = document.getElementById("table1")
+	if(getCookie("Table1") == "1"){
+		var x = document.getElementById("Table1")
 		x.classList.replace('free', 'ocupied')
 		x.onclick = function() {remclick()}
 		rfsh()
 	}
-	if(getCookie("table2") == "1"){
-		var x = document.getElementById("table2")
+	if(getCookie("Table2") == "1"){
+		var x = document.getElementById("Table2")
 		x.classList.replace('free', 'ocupied')
 		x.onclick = function() {remclick()}
 		rfsh()
 	}
-	if(getCookie("table3") == "1"){
-		var x = document.getElementById("table3")
+	if(getCookie("Table3") == "1"){
+		var x = document.getElementById("Table3")
 		x.classList.replace('free', 'ocupied')
 		x.onclick = function() {remclick()}
 		rfsh()
 	}
-	if(getCookie("table4") == "1"){
-		var x = document.getElementById("table4")
+	if(getCookie("Table4") == "1"){
+		var x = document.getElementById("Table4")
 		x.classList.replace('free', 'ocupied')
 		x.onclick = function() {remclick()}
 		rfsh()
 	}
-	if(getCookie("table5") == "1"){
-		var x = document.getElementById("table5")
+	if(getCookie("Table5") == "1"){
+		var x = document.getElementById("Table5")
 		x.classList.replace('free', 'ocupied')
 		x.onclick = function() {remclick()}
 		rfsh()
@@ -159,7 +164,7 @@
 		document.cookie="tablenum=" + button.id + ";"
 		document.cookie=button.id + "=1;"
 		rfsh()
-		window.location.href="interface.html"
+		window.location.href="interface.php"
 	}
 	function remclick(){
 		var button = event.target
